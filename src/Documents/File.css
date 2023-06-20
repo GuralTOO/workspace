@@ -1,0 +1,43 @@
+.file-mini {
+    /* Adjust these values as needed */
+    width: 150px;
+    height: 150px;
+    border: 1px solid white;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+  
+  .file-info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    padding: 5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .file-icon {
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+  
+  .file-icon span {
+    font-weight: bold;
+  }
+  
+  .file-name {
+    flex: 1;
+    font-size: small;
+    color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }

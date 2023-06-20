@@ -1,0 +1,9 @@
+.header {
+    background-color: white;
+    color: black;
+    /* text collor black */    
+  }
+
+  .header .MuiTypography-root {
+    color: black;
+  }
