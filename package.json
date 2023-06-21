@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "http://guraltoo.github.io/workspace",
+  "homepage": "https://guraltoo.github.io/workspace",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
