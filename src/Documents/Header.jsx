@@ -4,15 +4,11 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <AppBar position="static" className="header">
+    <AppBar position="static" className="app-bar">
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          GN-Works
+        <Typography variant="h6" paddingLeft={"60px"}>
+          Workspace
         </Typography>
-        <div>
-          {/* Add your search input here */}
-          <InputBase placeholder="Search..." />
-        </div>
       </Toolbar>
     </AppBar>
   );

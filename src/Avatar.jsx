@@ -51,7 +51,7 @@ export default function Avatar({ url, size, onUpload }) {
   }
 
   return (
-    <div>
+    <div style = {{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
       {avatarUrl ? (
         <img
           src={avatarUrl}
@@ -62,7 +62,7 @@ export default function Avatar({ url, size, onUpload }) {
       ) : (
         <div className="avatar no-image" style={{ height: size, width: size }} />
       )}
-      <div style={{ width: size }}>
+      <div style={{ width: size, alignSelf: 'center', padding: '.4%'}}>
         <label className="button primary block" htmlFor="single">
           {uploading ? 'Uploading ...' : 'Upload'}
         </label>

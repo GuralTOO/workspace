@@ -1,9 +1,19 @@
-.header {
-    background-color: white;
-    color: black;
-    /* text collor black */    
-  }
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  border-bottom: #fff 1px solid;
+  /* add your other styles */
+}
 
-  .header .MuiTypography-root {
-    color: black;
-  }
+.MuiAppBar-root.app-bar {
+  background-color: #101010;
+  height: 50px;
+  /* border-bottom: 1px solid grey; */
+}
+
+.header .MuiTypography-root {
+  color: white;
+}

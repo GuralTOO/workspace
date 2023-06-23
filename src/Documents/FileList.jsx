@@ -20,9 +20,9 @@ const FileList = (userID) => {
     fetchFiles();
   }, [currentPath]);
 
-  useEffect(() => {
-    fetchMainFolders();
-  }, []);
+  // useEffect(() => {
+  //   fetchMainFolders();
+  // }, []);
 
   const handleFolderSelect = (folderName) => {
     console.log("folder selected", "new path: " + currentPath + '/' + folderName);
@@ -86,15 +86,15 @@ const FileList = (userID) => {
         }
         <div className="file-list-container">
             {loading ? <p>Loading files...</p> : files.map((file, index) => (
-            file.name.includes(".pdf") ? <FileItem key={file.id} file={file} filePath={currentPath+'/'+file.name} /> 
-            : <Folder key={file.id} folderName={file.name} onFolderClick={handleFolderSelect}/>
+            file.name.includes(".pdf") ? <FileItem key={`${file.id}-${index}`} file={file} filePath={currentPath+'/'+file.name} /> 
+            : <Folder key={`${file.id}-${index}`} folderName={file.name} onFolderClick={handleFolderSelect}/>
           ))}
         </div>
         <div>
-          <FileUpload folderPath = {currentPath}/>
+          <FileUpload folderPath = {currentPath} onUpload = {fetchFiles}/>
         </div>
         <div>
-          <Chatbox folderPath = {currentPath}/>
+          <Chatbox folderPath = {currentPath} />
         </div>
       </div>
     </div>

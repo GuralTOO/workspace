@@ -1,73 +1,47 @@
-import React, { useState } from 'react';
-// import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import React from 'react';
 import FolderIcon from '@mui/icons-material/Folder';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
-
-
-const Sidebar = ({ folders, onFolderSelect }) => {
-  const [selectedFolder, setSelectedFolder] = useState(null);
-
-  const handleFolderClick = (folder) => {
-    setSelectedFolder(folder);
-    onFolderSelect(folder); // Notify parent component about the selected folder
+const Sidebar = () => {
+  const buttonStyle = {
+    width: '4vw', 
+    height: '4vh', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    border: 'none',
+    backgroundColor: 'transparent',
+    cursor: 'pointer',
   };
 
+  const isSmallScreen = useMediaQuery(theme => theme.breakpoints.down('sm'));
+
+  if (isSmallScreen) {
+    // Render a different layout for small screens
+    return (
+      <div style={{width: '100vw', height: '60px', borderTop: '2px solid grey', position: 'fixed', bottom: 0, display: 'flex', justifyContent: 'space-between'}}>
+        <Link to="/workspace" style={{...buttonStyle, marginLeft: '15px'}}>
+          <FolderIcon />
+        </Link>
+        <Link to="/account" style={{...buttonStyle, marginRight: '15px'}}>
+          <AccountCircleIcon />
+        </Link>
+      </div>
+    );
+  }
 
   return (
-    <div>
-
-    <Toolbar />
-    <Divider />
-    <List>
-      {folders.map((folder) => (
-        <ListItem key={folder.name} disablePadding>
-        <ListItemButton onClick={() => handleFolderClick(folder.name)} style={{backgroundColor: 'transparent'}}>
-          <ListItemIcon>
-            <FolderIcon />
-          </ListItemIcon>
-          <ListItemText primary={folder.name} />
-        </ListItemButton>       
-        </ListItem> 
-      ))}        
-    </List>
+    <div style={{height: '100vh', width: '4vw', borderRight: '2px solid grey', position: 'fixed', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+      <Link to="/workspace" style={{...buttonStyle, marginTop: '3vh'}}>
+        <FolderIcon />
+      </Link>
+      <Link to="/account" style={{...buttonStyle, marginBottom: '10vh'}}>
+        <AccountCircleIcon />
+        </Link>
     </div>
-
-  )
-
-  // return (
-  //   <div style={{flex: 1, backgroundColor: 'red'}}> 
-  //     {/* Render folders */}
-  //     {folders.map((folder) => (
-  //       <ListItem 
-  //         button
-  //         key={folder.id}
-  //         selected={folder === selectedFolder}
-  //         onClick={() => handleFolderClick(folder.name)}
-  //       >
-  //         <ListItemIcon>
-  //           <FolderIcon />
-  //         </ListItemIcon>
-  //         <ListItemText primary={folder.name} />
-  //       </ListItem>
-  //     ))}
-  //   </div>
-  // );
+  );
 };
 
 export default Sidebar;

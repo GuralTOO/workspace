@@ -2,16 +2,18 @@ import { useState } from 'react';
 import { supabase } from '../supabaseClient';
 // Initialize Supabase
 
-const FileUpload = (folderPath) => {
+const FileUpload = (properties) => {
+  const folderPath = properties.folderPath;
+  const onUpload = properties.onUpload;
   const [uploading, setUploading] = useState(false);
-  console.log(folderPath)
+  console.log(folderPath + " is the folder path")
   const uploadFile = async (event) => {
     const file = event.target.files[0];
     const fileExtension = file.name.split('.').pop();
     const fileName = file.name;
     // set const filePath equal to the user's id +'/' + the file name
     console.log(fileName)
-    const filePath = `${folderPath.folderPath}/${fileName}`;
+    const filePath = `${folderPath}/${fileName}`;
     setUploading(true);
     console.log("Uploading file..." + filePath)
 
@@ -59,8 +61,9 @@ const FileUpload = (folderPath) => {
         console.error('An error occurred:', err);
       }
     }
-    setUploading(false);
 
+    setUploading(false);
+    onUpload();
   }
 
   return (
