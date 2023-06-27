@@ -22,6 +22,7 @@
   flex-grow: 1;
   /* add left padding equal to 2% of the screen width plus 6o px */
   padding-left: calc(2% + 60px);
+  background-color: blanchedalmond;
   padding-right: 2%;
 }
 

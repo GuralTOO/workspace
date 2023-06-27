@@ -1,100 +1,59 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '../supabaseClient';
 import FileUpload from './FileUpload';
 import FileItem from './FileItem';
 import Folder from './Folder';
-import Sidebar from './SideBar';
 import Chatbox from './Chatbox';
-import { Button } from "@mui/material";
-import './FileManager.css'
+import CreateFolder from './CreateFolder';
+import { getFiles } from '../utils/utils';
+import './FileManager.css';
+import { useLoaderData, useLocation, useParams } from 'react-router-dom';
 
 
-const FileList = (userID) => {
+const FileList = ({userID}) => {
+  // const location = useLocation(); // add this line
+  const params = useParams();
+  const [path, setPath] = useState(params['*'] || '');
   const [files, setFiles] = useState([]);
-  const [mainFolders, setMainFolders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPath, setCurrentPath] = useState(userID.userID);
-  const mainPath = userID.userID;
+  const [fullPath, setFullPath] = useState(userID + '/' + path);
+
+  const fetchFiles = useCallback(() => {
+    getFiles(fullPath).then((files) => {
+      setFiles([{}, ...files]);
+    });
+  }, [fullPath]);
+
+  useEffect(() => {
+    setPath(params['*'] || '');
+  }, [params]);
+
+  useEffect(() => {
+    setFullPath(path ? userID + '/' + path : userID);
+  }, [userID, path]);
 
   useEffect(() => {
     fetchFiles();
-  }, [currentPath]);
+  }, [fetchFiles]);
 
-  // useEffect(() => {
-  //   fetchMainFolders();
-  // }, []);
-
-  const handleFolderSelect = (folderName) => {
-    console.log("folder selected", "new path: " + currentPath + '/' + folderName);
-    setCurrentPath(currentPath + '/' + folderName);
-  };
-  
-  const handleMainFolderSelect = (folderName) => {
-    console.log("folder selected", "new path: " + mainPath + '/' + folderName);
-    setCurrentPath(mainPath + '/' + folderName);
-  };
-
-  const fetchMainFolders = async () => {
-    setLoading(true);
-    console.log("fetching folders at " + mainPath + "...");
-    const { data, error } = await supabase
-      .storage
-      .from('documents')
-      .list(mainPath);
-
-    setLoading(false);
-
-    if (error) {
-      alert('Error fetching files.');
-      console.error('Error fetching files: ', error);
-    } else {
-      // iterate over the data and only add the folders to the mainFolders array
-      const folders = data.filter((file) => file.name.includes(".") === false);
-      setMainFolders(folders);
-      console.log(data)
-    }
-  }
-
-  const fetchFiles = async () => {
-    setLoading(true);
-    console.log("fetching files at " + currentPath + "...");
-    const { data, error } = await supabase
-      .storage
-      .from('documents')
-      .list(currentPath);
-
-    setLoading(false);
-
-    if (error) {
-      alert('Error fetching files.');
-      console.error('Error fetching files: ', error);
-    } else {
-      setFiles(data);
-      console.log(data)
-    }
-  }
+  const folderName = path ? path.substring(path.lastIndexOf("/")+1) : "My Files";
 
   return (
     <div className='file-manager-container'>
-      {/* <div className="sidebar">
-        <Sidebar folders={mainFolders} onFolderSelect={handleMainFolderSelect} />
-      </div> */}
       <div style={{flex: 1}}>
-        { currentPath === userID.userID ? <h1>My Files</h1> : 
-          <h1> {currentPath.substring(currentPath.lastIndexOf("/")+1)}</h1>}
-        { currentPath === userID.userID ? null :       <Button onClick={() => setCurrentPath(currentPath.substring(0, currentPath.lastIndexOf("/")))}>Back</Button>
-        }
+        <h2>{folderName}</h2>
         <div className="file-list-container">
-            {loading ? <p>Loading files...</p> : files.map((file, index) => (
-            file.name.includes(".pdf") ? <FileItem key={`${file.id}-${index}`} file={file} filePath={currentPath+'/'+file.name} /> 
-            : <Folder key={`${file.id}-${index}`} folderName={file.name} onFolderClick={handleFolderSelect}/>
+            {files.map((file, index) => (
+              index === 0 ? <CreateFolder parentPath={path} onFolderCreate={fetchFiles  } />
+              : file.name.includes(".pdf") ? 
+                <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
+                : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>
           ))}
         </div>
         <div>
-          <FileUpload folderPath = {currentPath} onUpload = {fetchFiles}/>
+          <FileUpload folderPath = {fullPath} onUpload = {fetchFiles}/>
         </div>
         <div>
-          <Chatbox folderPath = {currentPath} />
+          <Chatbox folderPath = {fullPath} />
         </div>
       </div>
     </div>

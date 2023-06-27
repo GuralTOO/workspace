@@ -4,7 +4,7 @@ import { supabase } from './supabaseClient'
 export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
-
+  console.log("rendering auth");
   const handleLogin = async (event) => {
     event.preventDefault()
 

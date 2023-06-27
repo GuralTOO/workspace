@@ -1,14 +1,15 @@
-import React from "react";
-import { Button, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import React from 'react';
 import FolderIcon from "@mui/icons-material/FolderOutlined";
+import { useNavigate, Link } from 'react-router-dom';
 import "./Folder.css";
 
-const Folder = ({ folderName, onFolderClick }) => {
+const Folder = ({ folderName, folderPath }) => {
+  // set folderPath equal to the current path without the userID in front
+  const shortFolderPath = folderPath.substring(folderPath.indexOf("/")+1);
+
   const handleFolderClick = () => {
     console.log("folder selected: ", folderName);
-    onFolderClick(folderName);
   };
-
 
   const MAX_FILENAME_LENGTH = 12; // Adjust the calculations as needed
 
@@ -16,33 +17,18 @@ const Folder = ({ folderName, onFolderClick }) => {
     ? folderName.substring(0, MAX_FILENAME_LENGTH) + "..."
     : folderName;
 
-
-
   return (
-    <div className = "folder-mini" onClick={handleFolderClick}>
-      <div className='folder-icon'>
-        <FolderIcon fontSize="inherit" />
+    <Link to={shortFolderPath}>
+      <div className = "folder-mini">
+        <div className='folder-icon'>
+          <FolderIcon fontSize="inherit" />
+        </div>
+        <div className='folder-info'>
+          <div className="folder-name">{truncatedFileName}</div>
+        </div>
       </div>
-      <div className='folder-info'>
-        <div className="folder-name">{truncatedFileName}</div>
-      </div>
-    </div>
+    </Link>
   );
 };
 
 export default Folder;
-/*
-    <div 
-      className="file-mini" 
-      style={{border: '1px solid white', height: '150px', width: '150px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent'}}
-      onClick={handleFolderClick}
-    >
-      <ListItemIcon>
-        <FolderIcon />
-      </ListItemIcon>
-      <ListItemText 
-        primary={folderName} 
-        style={{fontSize: 'calc(7px + 1vmin)', textAlign: 'center'}}  // Dynamically scaled font size
-      />
-    </div>
-    */

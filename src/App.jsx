@@ -1,13 +1,14 @@
+import { HashRouter as Router, Navigate, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './App.css';
-import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import Auth from './Auth';
 import Account from './Account';
 import FileList from './Documents/FileList';
 import Header from './Documents/Header';
 import Sidebar from './Documents/SideBar';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 function App() {
   const [session, setSession] = useState(null);
@@ -28,22 +29,62 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <Header />
-        <Sidebar />
-        <div id="main-content">
-          {!session ? (
-            <Auth />
-          ) : (
-            <Routes>
-              <Route path="/workspace" element={<FileList key={session.user.id} userID={session.user.id} />} />
-              <Route path="/account" element={<Account key={session.user.id} session={session} />} />
-            </Routes>
-          )}
-        </div>
-      </Router>
+      <div>
+      <Header />
+      {!session ? <Auth /> :       
+        <RouterProvider router={
+          createBrowserRouter([
+            {element: <Sidebar />, children: [
+              {
+                path: 'account', element: <Account session={session} />
+              },
+              {
+                path: "files/*", element: <FileList userID={session.user.id} /> ,
+              },
+              {
+                path: '/', element: <Navigate to = {'files'}/>
+              },
+              {
+                path: '*', element: <h1>404: Whoopsie daisy, Page not Found</h1>
+              }
+            ]}
+          ])  
+        } />
+      } 
+      </div>
     </ThemeProvider>
   );
 }
 
 export default App;
+
+
+/*
+              path: '/', element: session ? <Sidebar /> : <Auth />,
+              children: session ? 
+              [
+                // make the home page the user's files
+                { path: '/', element: <Navigate to='/files' /> },
+                { path: '/files', element: <FileList userID={session.user.id} />,
+                  //create routes for fileId folders
+                  children: [{path: ':path', element: <FileList userID={session.user.id} />},]
+                },
+                { path: '/account', element: <Account session={session}/> },
+                // error page
+                { path: '*', element: <h1>404: Not Found</h1> }
+              ] : [],
+*/
+
+/*
+             children: [
+              <Route path="/" element={<Sidebar />}>
+                <Route path='/folder' element={<FileList />} >,
+                  <Route path=':path/*'
+                    element={<FileList />}
+                    loader={getFiles}
+                  />,
+                </Route>
+                <Route path="/account" element={<Account />} />,
+              </Route>
+ 
+              */

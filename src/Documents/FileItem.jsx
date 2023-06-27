@@ -15,24 +15,6 @@ const FileItem = ({filePath, file }) => {
   }
 
   const openModal = async () => {
-    // Use the JS library to download a file.
-    //just debugging supabase:
-
-    // try {
-    //   const { data, error } = await supabase.functions.invoke('weaviate-client', {
-    //     body: { name: 'master' },
-    //   });
-    
-    //   if (error) {
-    //     throw error;
-    //   }
-    
-    //   console.log(data.message);
-    // } catch (err) {
-    //   console.error('An error occurred:', err);
-    // }
-
-    //end debugging supabase
     console.log("trying to download file")
     console.log(filePath)
     const { data, error } = await supabase.storage.from('documents').download(filePath);
@@ -76,8 +58,6 @@ const FileItem = ({filePath, file }) => {
 
   return (
     <div > 
-      {/* /*className = "file-mini" style={{border: '1px solid white', height: '150px', width: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent'}}>*/ }
-      {/* <p onClick={openModal}>{file.name}</p> */}
       <File key={file.id} fileName={file.name} onFileClick={handleFileSelect}/>
       {isOpen && (
         <div>

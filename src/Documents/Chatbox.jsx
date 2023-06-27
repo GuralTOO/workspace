@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { supabase } from "../supabaseClient";
 
-const Chatbox = (currentPath) => {
+const Chatbox = (param) => {
+    const currentPath = param.folderPath;
     const [message, setMessage] = useState("");
     const [outputMessage, setOutputMessage] = useState("");
 
@@ -10,7 +11,7 @@ const Chatbox = (currentPath) => {
         console.log("curpath:", currentPath)
         await supabase.functions.invoke('openai', {
             body: { 
-              'path': currentPath.folderPath, 
+              'path': currentPath, 
               'query': message,
             },
         }).then((response) => {
@@ -25,7 +26,7 @@ const Chatbox = (currentPath) => {
         
 
     return (
-        <div style={{paddingTop: 50}}>
+        <div style={{paddingTop: 50, paddingBottom: 50}}>
             <p>Chatbox</p>
             <input type="text" placeholder="Type a message..." onChange={(e) => setMessage(e.target.value)}/>
             <button title = "Send" onClick={handleSend} style={{backgroundColor: 'white', width: 50, height: 20}}/>
