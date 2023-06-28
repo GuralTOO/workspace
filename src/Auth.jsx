@@ -5,11 +5,13 @@ export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   console.log("rendering auth");
+  const dev = process.env.NODE_ENV === 'development'
   const handleLogin = async (event) => {
     event.preventDefault()
 
     setLoading(true)
-    const { error } = await supabase.auth.signInWithOtp({ email, redirectTo: 'http://workspace.gn-works.com' })
+    const { error } = await supabase.auth.signInWithOtp({ email, redirectTo: 
+      dev ? 'http://localhost:5173/' : 'https://workspace.gn-works.com' })
 
     if (error) {
       alert(error.error_description || error.message)

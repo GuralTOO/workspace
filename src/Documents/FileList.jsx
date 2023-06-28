@@ -43,14 +43,11 @@ const FileList = ({userID}) => {
         <h2>{folderName}</h2>
         <div className="file-list-container">
             {files.map((file, index) => (
-              index === 0 ? <CreateFolder parentPath={path} onFolderCreate={fetchFiles  } />
+              index === 0 ? <CreateFolder parentPath={fullPath} onFolderCreate={fetchFiles  } />
               : file.name.includes(".pdf") ? 
                 <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
                 : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>
           ))}
-        </div>
-        <div>
-          <FileUpload folderPath = {fullPath} onUpload = {fetchFiles}/>
         </div>
         <div>
           <Chatbox folderPath = {fullPath} />

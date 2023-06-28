@@ -47,7 +47,7 @@ const Sidebar = () => {
           <AccountCircleIcon />
         </NavLink>
       </div>
-      <div style={{ flexGrow: 1, paddingLeft: 'calc(2% + 60px)', paddingRight: '2%' }}>
+      <div style={{ flexGrow: 1, paddingLeft: 'calc(5% + 60px)', paddingRight: 'calc(5% + 60px)' }}>
         <Outlet />
       </div>
     </div>
