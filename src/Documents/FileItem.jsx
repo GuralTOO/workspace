@@ -1,18 +1,49 @@
 import { useEffect, useRef, useState } from 'react';
-import * as pdfjs from 'pdfjs-dist';
-pdfjs.GlobalWorkerOptions.workerSrc = 'pdfjs-dist/build/pdf.worker.js';
+import { Document, Page, pdfjs } from 'react-pdf';
+
+// support pdf rendering
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+// support text selection
+import 'react-pdf/dist/esm/Page/TextLayer.css';
+// support annotation layer (urls)
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+
+
 import {supabase} from '../supabaseClient';
 import './File.css'
 import File from './File';
 
 const FileItem = ({filePath, file }) => {
+  //new stuff to render a pop-up pdf
+  const [totalPages, setTotalPages] = useState(1);
+
   const [isOpen, setIsOpen] = useState(false);
   const [pdfDocument, setPdfDocument] = useState(null);
-  const canvasRef = useRef(null);
 
   const handleFileSelect = () => {
     openModal();
   }
+
+  // #region handling clicking outside of the pdf to close it
+  const modalRef = useRef();
+
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      closeModal()
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener for clicks
+    // add a delay of 0.2 seconds before adding the listener to allow the pdf to open
+    document.addEventListener("mousedown", handleClickOutside);
+    // Cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+
+  //#endregion
 
   const openModal = async () => {
     console.log("trying to download file")
@@ -25,46 +56,47 @@ const FileItem = ({filePath, file }) => {
       const url = URL.createObjectURL(data)
       console.log("Got the file at " + url);
       
-      pdfjs.getDocument(url).promise.then((pdfDoc_) => {
-        setPdfDocument(pdfDoc_);
-      });
+      // new implementation
+      setPdfDocument(url);
+      pdfjs.getDocument(url).promise.then((pdfDocument) => {
+        setTotalPages(pdfDocument.numPages);
+      });     
     }
     setIsOpen(true);
   }
 
-  useEffect(() => {
-    if (pdfDocument) {
-      pdfDocument.getPage(1).then((page) => {
-        const canvas = canvasRef.current;
-        const context = canvas.getContext('2d');
-        const scale = 1.5;
-        const viewport = page.getViewport({ scale });
-        const devicePixelRatio = window.devicePixelRatio || 1;
-        canvas.style.width = viewport.width + 'px';
-        canvas.style.height = viewport.height + 'px';
-        canvas.width = viewport.width * devicePixelRatio * scale;
-        canvas.height = viewport.height * devicePixelRatio * scale;
-        context.scale(devicePixelRatio * scale, devicePixelRatio * scale);
-
-        page.render({ canvasContext: context, viewport, renderInteractiveForms: true,
-            enableTextLayer: true });
-      });
-    }
-  }, [pdfDocument]);
-
   const closeModal = () => {
-    setIsOpen(false);
+    setTimeout(() => {
+      setPdfDocument(null);
+      setIsOpen(false);
+    }, 150)
   }
 
   return (
     <div > 
       <File key={file.id} fileName={file.name} onFileClick={handleFileSelect}/>
+      {/* new pdf rendering onto a pop-up */}
       {isOpen && (
-        <div>
-          <canvas ref={canvasRef} />
-          <button onClick={closeModal}>Close</button>
+        <div className="modal" onClick={closeModal}>
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+            ref={modalRef}
+          >
+            <Document file={pdfDocument} >
+              {Array.from(new Array(totalPages), (el, index) => (
+                <Page 
+                  key={`page_${index + 1}`} 
+                  pageNumber={index + 1} 
+                  devicePixelRatio={window.devicePixelRatio}
+                  width={window.screen.width * 0.5}
+                />
+              ))}
+            </Document>
+            <button onClick={(e) => {e.stopPropagation(); closeModal();}}>Close</button>
+          </div>
         </div>
-      )}
+        )}
     </div>
   );
 }
