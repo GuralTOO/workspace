@@ -19,6 +19,16 @@ const FileItem = ({filePath, file }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [pdfDocument, setPdfDocument] = useState(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  // check if the screen is small
+  useEffect(() => {
+    if (window.screen.width < 600) {
+      setIsSmallScreen(true);
+    }
+  }, []);
+
+
 
   const handleFileSelect = () => {
     openModal();
@@ -89,7 +99,7 @@ const FileItem = ({filePath, file }) => {
                   key={`page_${index + 1}`} 
                   pageNumber={index + 1} 
                   devicePixelRatio={window.devicePixelRatio}
-                  width={window.screen.width * 0.5}
+                  width={isSmallScreen ? window.screen.width : window.screen.width * 0.5}
                 />
               ))}
             </Document>
