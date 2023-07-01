@@ -1,12 +1,11 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, InputBase, Button } from "@mui/material";
-// import { callWeaviate } from "../utils/testFunctions";
 import './Header.css';
 import useSocket from "../utils/useSocket";
 import { useEffect, useState } from "react";
 
 const Header = () => {
-  const socket = useSocket("http://127.0.0.1:5001");
+  const socket = useSocket("https://filestore.visionproje.com");
   const [serverResponse, setServerResponse] = useState("");
   const [inputText, setInputText] = useState("What is going on?");
 
@@ -35,9 +34,9 @@ const Header = () => {
         <Typography variant="h6" paddingLeft={"60px"}>
           Workspace {serverResponse}
         </Typography>
-        <Button variant="contained" color="primary" style={{marginLeft: "auto", marginRight: "60px"}} onClick={sendTextToServer}>
+        {/* <Button variant="contained" color="primary" style={{marginLeft: "auto", marginRight: "60px"}} onClick={sendTextToServer}>
           hehe, testing
-        </Button>
+        </Button> */}
       </Toolbar>
     </AppBar>
   );

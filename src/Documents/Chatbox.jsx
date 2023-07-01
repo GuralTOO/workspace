@@ -7,10 +7,16 @@ import useSocket from "../utils/useSocket";
 
 const Chatbox = (param) => {
 
-    const socket = useSocket("http://127.0.0.1:5001");
+    const socket = useSocket("https://filestore.visionproje.com");
     const currentPath = param.folderPath;
     const [message, setMessage] = useState("");
     const [outputMessage, setOutputMessage] = useState("");
+
+    // clear the input and output message when the path changes
+    useEffect(() => {
+        setMessage("");
+        setOutputMessage("");
+    }, [currentPath]);
 
     // stream version
     useEffect(() => {
@@ -22,8 +28,10 @@ const Chatbox = (param) => {
         }
     }, [socket]);
     
-    const handleSendStream = () => {
+    const handleSendStream = async (event) => {
+        event.preventDefault(); // Add this line
         setOutputMessage("");
+        console.log("I be streamin")
         if (socket && socket.connected) {
             socket.emit("searchStream", {"path": currentPath, "query": message});
         } else {
@@ -56,7 +64,7 @@ const Chatbox = (param) => {
     return (
         <div style={{paddingTop: 50, paddingBottom: 50}}>
             <p>Chatbox</p>
-            <form onSubmit={handleSend}>
+            <form onSubmit={handleSendStream}>
                 <Box display="flex" >
                     <TextField 
                         type="text"
@@ -71,7 +79,7 @@ const Chatbox = (param) => {
                             className: "outlined-input"
                         }}
                     />
-                    <Button variant="contained" color="primary" type="submit" onSubmit={handleSend}>Send</Button>
+                    <Button variant="contained" color="primary" type="submit">Send</Button>
                 </Box>
             </form>
             <p>{outputMessage}</p>
@@ -79,41 +87,6 @@ const Chatbox = (param) => {
     );
 
 
-
-
-    // const currentPath = param.folderPath;
-    // const [message, setMessage] = useState("");
-    // const [outputMessage, setOutputMessage] = useState("");
-
-    // const handleSend = async () => {
-    //     console.log("send message")
-    //     console.log("curpath:", currentPath)
-    //     await supabase.functions.invoke('openai', {
-    //         body: { 
-    //           'path': currentPath, 
-    //           'query': message,
-    //         },
-    //     }).then((response) => {
-    //         console.log(response)
-    //         setOutputMessage(response.data.message);
-    //     })
-    //     .catch((error) => {
-    //         console.log('Error getting the answer:', error);
-    //     });
-    // }
-
-        
-
-    // return (
-    //     <div style={{paddingTop: 50, paddingBottom: 50}}>
-    //         <p>Chatbox</p>
-    //         {/* put the send button at the right end of the input bar */}
-    //         <input type="text" placeholder="Type a message..." onChange={(e) => setMessage(e.target.value)} />
-
-
-    //         <p>{outputMessage}</p>
-    //     </div>
-    // )
 }
 
 export default Chatbox
