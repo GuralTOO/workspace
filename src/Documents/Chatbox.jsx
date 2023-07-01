@@ -11,19 +11,40 @@ const Chatbox = (param) => {
     const currentPath = param.folderPath;
     const [message, setMessage] = useState("");
     const [outputMessage, setOutputMessage] = useState("");
+    const [buffer, setBuffer] = useState("");  // Add this line
+    const [shouldStartDraining, setShouldStartDraining] = useState(false); 
 
+    
     // clear the input and output message when the path changes
     useEffect(() => {
         setMessage("");
         setOutputMessage("");
     }, [currentPath]);
 
+    // Update the output message from the buffer at a steady rate
+    useEffect(() => {
+        if (buffer.length > 10) {  // Wait until there are at least 10 characters in the buffer
+            setShouldStartDraining(true);
+        }
+    
+        const intervalId = setInterval(() => {
+            if (shouldStartDraining && buffer.length > 0) {
+                setOutputMessage((prev) => prev + buffer.charAt(0));
+                setBuffer((prev) => prev.slice(1));
+            }
+        }, 10);  // Adjust this value to control the speed
+    
+        // Clean up the interval on unmount
+        return () => clearInterval(intervalId);
+    }, [buffer, shouldStartDraining]);  
+
+
     // stream version
     useEffect(() => {
         if (socket) {
             socket.on("searchStream", (msg) => {
                 console.log("Received message: ", msg);
-                setOutputMessage((prev) => prev + msg);
+                setBuffer((prev) => prev + msg);
             });
         }
     }, [socket]);
