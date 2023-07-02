@@ -10,7 +10,7 @@ export async function addFile(filePath, file) {
     alert("Error uploading file.");
     console.error("Error uploading file: ", error);
   } else {
-    console.log("file successfully uploaded to " + filePath);
+    // console.log("file successfully uploaded to " + filePath);
     try {
       let publicURL = "";
       await supabase.storage
@@ -18,7 +18,7 @@ export async function addFile(filePath, file) {
         .createSignedUrl(filePath, 60)
         .then((response) => {
           const signedUrl = response.data.signedUrl;
-          console.log("signedUrl:", signedUrl); // Log the signed URL
+          // console.log("signedUrl:", signedUrl); // Log the signed URL
           publicURL = signedUrl;
         })
         .catch((error) => {
@@ -76,8 +76,6 @@ export async function getFiles(folderPath) {
     console.error("Error getting files: ", error);
     return;
   }
-  console.log("grabbed files from: " + folderPath);
-  console.log("files as data: ", data);
   return data;
   return [
     {
