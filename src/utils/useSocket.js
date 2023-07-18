@@ -2,11 +2,15 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-const useSocket = (serverUrl) => {
+const useSocket = ({ serverUrl, jwt }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const socketIo = io(serverUrl);
+    const socketIo = io(serverUrl, {
+      auth: {
+        token: jwt,
+      },
+    });
 
     socketIo.on("connect", () => {
       console.log("connected to server");

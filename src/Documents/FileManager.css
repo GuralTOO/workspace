@@ -1,10 +1,12 @@
 .file-manager-container {
-    display: flex;
-    flex-direction: row;
-    height: 100vh; /* Adjust the height as needed */
+    /* display: flex; */
+    /* flex-direction: row; */
+    height: 100vh; 
+    max-height: 100vh;
+    overflow: auto;
     /* add padding on the left */
     /* background-color: aqua; */
-
+    
   }
   
   /* .file-list-container {
