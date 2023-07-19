@@ -5,6 +5,8 @@ import { NavLink, Outlet } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import '../App.css'
 const Sidebar = () => {
+
+  
   const buttonStyle = {
     width: '4vw', 
     height: '4vh', 
@@ -38,20 +40,29 @@ const Sidebar = () => {
   }
 
   return (
-    <div style = {{flex: 1, flexDirection: "row"}}>
-      <div style={{height: '100vh', width: '4vw', borderRight: '2px solid grey', position: 'fixed', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
-        <NavLink to="/files" style={{...buttonStyle, paddingTop: '3vh'}}>
-          <Home />
-        </NavLink>
-        <NavLink to="/account" style={{...buttonStyle, marginBottom: '10vh'}}>
-          <AccountCircleIcon />
-        </NavLink>
+    <div style = {{flex: 1, flexDirection: "row", position: 'relative'}}>
+      <div style={{height: '100vh', width: '4vw', borderRight: '2px solid grey', position: 'fixed', flex: 1, flexDirection: 'column'}}>
+        <h2>W</h2>
+        {/* folder navigation div */}
+        <div>
+          <NavLink to="/files" style={buttonStyle}>
+            Home
+          </NavLink>
+        </div>
+
+        {/* settings navigation div positioned at the bottom of the screen*/}
+        <div style={{ position: 'absolute', bottom: '4vh' }}>
+          <NavLink to="/account" style={buttonStyle} >
+            <AccountCircleIcon fontSize='large'/>
+          </NavLink>
+        </div>
+
       </div>
-      <div style={{ flexGrow: 1, paddingLeft: 'calc(5% + 60px)', paddingRight: 'calc(5% + 60px)' }}>
+      <div style={{ flexGrow: 1, paddingLeft: '4vw',  }}>
         <Outlet />
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default Sidebar; 

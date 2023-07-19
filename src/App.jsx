@@ -6,7 +6,6 @@ import { supabase } from './supabaseClient';
 import Auth from './Auth';
 import Account from './Account';
 import FileList from './Documents/FileList';
-import Header from './Documents/Header';
 import Sidebar from './Documents/SideBar';
 
 
@@ -30,7 +29,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-      <Header />
       {!session ? <Auth /> :       
         <RouterProvider router={
           createBrowserRouter([

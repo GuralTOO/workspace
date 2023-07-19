@@ -5,12 +5,15 @@ import './Chatbox.css'
 import useSocket from "../utils/useSocket";
 
 
-const Chatbox = (param) => {
+const Chatbox = ({folderPath, outputMessage, setOutputMessage}) => {
 
-    const socket = useSocket("https://filestore.visionproje.com");
-    const currentPath = param.folderPath;
+    const serverUrl = "https://filestore.visionproje.com";
+    // const serverUrl = "http://127.0.0.1:5001";
+    const socket = useSocket({serverUrl: serverUrl, 
+        jwt: supabase.auth.getSession() ? supabase.auth.getSession().access_token : null});
+    const currentPath = folderPath;
     const [message, setMessage] = useState("");
-    const [outputMessage, setOutputMessage] = useState("");
+    // const [outputMessage, setOutputMessage] = useState("");
     const [buffer, setBuffer] = useState("");  // Add this line
     const [shouldStartDraining, setShouldStartDraining] = useState(false); 
 
@@ -50,6 +53,7 @@ const Chatbox = (param) => {
     }, [socket]);
     
     const handleSendStream = async (event) => {
+        console.log(currentPath)
         event.preventDefault(); // Add this line
         setOutputMessage("");
         console.log("I be streamin")
@@ -83,27 +87,26 @@ const Chatbox = (param) => {
     }
 
     return (
-        <div style={{paddingTop: 50, paddingBottom: 50}}>
-            <p>Chatbox</p>
+        <div style={{marginBottom: 20}}>
             <form onSubmit={handleSendStream}>
                 <Box display="flex" >
                     <TextField 
                         type="text"
                         variant="outlined"
-                        placeholder="Type a message..." 
+                        placeholder="Tell me about x..." 
                         fullWidth
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        style={{ marginRight: 8 }}
+                        style={{ marginRight: 8, color: 'beige' }}
                         InputProps={{ // Target the input element
-                            style: { color: 'white' },
+                            style: { color: 'beige' },
                             className: "outlined-input"
                         }}
                     />
                     <Button variant="contained" color="primary" type="submit">Send</Button>
                 </Box>
             </form>
-            <p>{outputMessage}</p>
+            {/* <p>{outputMessage}</p> */}
         </div>
     );
 
