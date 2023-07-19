@@ -93,7 +93,7 @@ const FileList = ({userID}) => {
       </div>
       <div style={{display: 'flex', flexDirection: 'row', height: '95%'}}>          
         {/* left side */}
-        <div style={{width: `${split}%`, height: "100%", paddingLeft: "2vw", marginTop: 15}}>
+        <div style={{width: `${split}%`,  paddingLeft: "2vw", marginTop: 15, overflowY: 'auto'}}>
           <div className="file-list-container">
               {files.map((file, index) => (
                 index === 0 ? <CreateFolder parentPath={fullPath} onFolderCreate={fetchFiles  } />
