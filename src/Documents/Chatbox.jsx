@@ -45,7 +45,7 @@ const Chatbox = ({folderPath, outputMessage, setOutputMessage}) => {
     // stream version
     useEffect(() => {
         if (socket) {
-            socket.on("searchStream", (msg) => {
+            socket.on('message', (msg) => {
                 console.log("Received message: ", msg);
                 setBuffer((prev) => prev + msg);
             });
