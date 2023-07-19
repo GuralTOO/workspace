@@ -6,7 +6,7 @@ import CreateFolder from './CreateFolder';
 import { getFiles } from '../utils/utils';
 import './FileManager.css';
 import { useLoaderData, useLocation, useParams } from 'react-router-dom';
-import { Typography, Paper } from '@mui/material';
+import { Typography, Paper} from '@mui/material';
 
 
 const FileList = ({userID}) => {
@@ -86,10 +86,10 @@ const FileList = ({userID}) => {
 
   return (
     <div className='file-manager-container'>
-      <div style={{height: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', position: 'relative'}}> 
-        <Typography variant="h6">{folderName}</Typography> 
-        {/* full width horizontal line */}
-        <div style={{width: "100%", height: "2px", backgroundColor: "grey", position: 'absolute', bottom: 0}}></div>
+      <div style={{height: '5%', background: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column', position: 'relative'}}> 
+          <Typography variant="h6" style={{paddingLeft: '2vw'}}>{folderName}</Typography> 
+          {/* full width horizontal line */}
+          <div style={{width: "100%", height: "2px", backgroundColor: "grey", position: 'absolute', bottom: 0}}></div>
       </div>
       <div style={{display: 'flex', flexDirection: 'row', height: '95%'}}>          
         {/* left side */}
