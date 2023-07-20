@@ -32,7 +32,7 @@ function App() {
       {!session ? <Auth /> :       
         <RouterProvider router={
           createBrowserRouter([
-            {element: <Sidebar />, children: [
+            {element: <Sidebar userID={session.user.id}/>, children: [
               {
                 path: 'account', element: <Account session={session} />
               },

@@ -150,7 +150,8 @@ const CreateFolder = ({ parentPath, onFolderCreate }) => {
         onClick={() => setIsCreating(true)}
       >
         <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-          <AddIcon style={{ fontSize: 70 }} />
+          {/*  Add Icon filled in with bright orange color */}
+          <AddIcon style={{fontSize: 70}} />
           <div className='folder-info'>
             <div className="folder-name">New</div>
           </div>
