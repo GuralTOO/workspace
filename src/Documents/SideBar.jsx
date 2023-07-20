@@ -14,7 +14,6 @@ const Sidebar = ({userID}) => {
     height: '4vh', 
     display: 'flex', 
     justifyContent: 'left', 
-    alignItems: 'center',
     backgroundColor: 'transparent',
     cursor: 'pointer',
     border: '1px solid black',
@@ -23,7 +22,10 @@ const Sidebar = ({userID}) => {
     // make the button background color change when hovered over
     '&:hover': {
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    }
+    },
+    fontSize: '15px',
+    // ground the elements to the bottom of the button
+    alignItems: 'flex-end',
 
 
   };
@@ -82,7 +84,7 @@ const Sidebar = ({userID}) => {
               {/* add space after the icon */}
               &nbsp;
               {/* if the name is longer than 8, print first five letters and ... else, print the name*/}
-              {folder.name.length > 8 ? folder.name.substring(0, 6) + "..." : folder.name}
+              {folder.name.length > 9 ? folder.name.substring(0, 7) + "..." : folder.name}
             </Button>
           ))}
 
