@@ -26,18 +26,21 @@ function App() {
 
   const theme = createTheme();
 
+// check if env variable NODE_ENV is set to development
+  const dev = process.env.NODE_ENV === 'development'
+
   return (
     <ThemeProvider theme={theme}>
       <div>
-      {!session ? <Auth /> :       
+      {!session && !dev ? <Auth /> :       
         <RouterProvider router={
           createBrowserRouter([
-            {element: <Sidebar userID={session.user.id}/>, children: [
+            {element: <Sidebar userID= {dev ? 1: session.user.id}/>, children: [
               {
-                path: 'account', element: <Account session={session} />
+                path: 'account', element: <Account session={dev ? 1: session} />
               },
               {
-                path: "files/*", element: <FileList userID={session.user.id} /> ,
+                path: "files/*", element: <FileList userID={dev ? 1: session.user.id} /> ,
               },
               {
                 path: '/', element: <Navigate to = {'files'}/>
