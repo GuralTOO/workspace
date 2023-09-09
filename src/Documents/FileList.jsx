@@ -86,7 +86,7 @@ const FileList = ({userID}) => {
 
   return (
     <div className='file-manager-container'>
-      <div style={{height: '5%', background: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column', position: 'relative'}}> 
+      <div style={{height: '44px', background: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column', position: 'relative'}}> 
         <Typography variant="h6" style={{paddingLeft: '2vw'}}>
           { 
             <NavLink to={`/files`} style={{color: 'white', textDecoration: 'none'}}>

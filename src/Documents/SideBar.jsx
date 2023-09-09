@@ -11,10 +11,11 @@ const Sidebar = ({userID}) => {
   
   const buttonStyle = {
     width: '100%', 
-    height: '4vh', 
+    height: '33px', 
     display: 'flex', 
     justifyContent: 'left', 
     backgroundColor: 'transparent',
+  
     cursor: 'pointer',
     border: '1px solid black',
     borderRadius: '1px',
@@ -25,7 +26,7 @@ const Sidebar = ({userID}) => {
     },
     fontSize: '15px',
     // ground the elements to the bottom of the button
-    alignItems: 'flex-end',
+    alignItems: 'center',
 
 
   };
@@ -80,7 +81,7 @@ const Sidebar = ({userID}) => {
           {outerFolders.map((folder, index) => (
             // <NavLink key={index} to={`/files/${folder.name}`} >
             <Button key={index} style={buttonStyle} component={NavLink} to={`/files/${folder.name}`} >
-              <Folder style={{fontSize: 25}}/>
+              {/* </> */}
               {/* add space after the icon */}
               &nbsp;
               {/* if the name is longer than 8, print first five letters and ... else, print the name*/}
@@ -94,7 +95,7 @@ const Sidebar = ({userID}) => {
         <div style={{ position: 'absolute', bottom: '4vh', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
           <NavLink to="/account">
             <AccountCircleIcon fontSize='large'/>
-            <p style={{color: 'white', fontSize: '20px', marginTop: -5}}>Account</p>
+            <p style={{color: 'white', fontSize: '15px', marginTop: -5}}>Account</p>
           </NavLink>
         </div>
 
