@@ -99,7 +99,7 @@ const FileItem = ({filePath, file }) => {
                   key={`page_${index + 1}`} 
                   pageNumber={index + 1} 
                   devicePixelRatio={window.devicePixelRatio}
-                  width={isSmallScreen ? window.screen.width : window.screen.width * 0.5}
+                  width={isSmallScreen ? window.screen.width : window.screen.width * 0.7}
                 />
               ))}
             </Document>

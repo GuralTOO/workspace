@@ -125,7 +125,7 @@ const FileList = ({userID}) => {
           <div style = {{padding: 20, marginTop: 15, color: 'beige'}}>
             {chatBoxText}
           </div>
-          <div style={{padding: 20, bottom: 0, width: "95%", position: 'absolute'}}>
+          <div style={{padding: 20, bottom: 0, width: "100%", position: 'absolute'}}>
             <Chatbox folderPath = {fullPath} outputMessage = {chatBoxText} setOutputMessage = {setChatBoxText}/>
           </div>
         </div>          

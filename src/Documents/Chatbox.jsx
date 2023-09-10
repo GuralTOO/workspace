@@ -91,19 +91,22 @@ const Chatbox = ({folderPath, outputMessage, setOutputMessage}) => {
             <form onSubmit={handleSendStream}>
                 <Box display="flex" >
                     <TextField 
-                        type="text"
-                        variant="outlined"
+                        variant="filled"
+                        // label="Ask a question"
                         placeholder="Tell me about x..." 
                         fullWidth
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        style={{ marginRight: 8, color: 'beige' }}
-                        InputProps={{ // Target the input element
-                            style: { color: 'beige' },
-                            className: "outlined-input"
-                        }}
+                        style={{ marginRight: 8}}
+                        InputProps={{style: { color: 'beige'}}}
+                        multiline
+                        focused
                     />
-                    <Button variant="contained" color="primary" type="submit">Send</Button>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        type="submit"
+                    >Send</Button>
                 </Box>
             </form>
             {/* <p>{outputMessage}</p> */}
