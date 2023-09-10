@@ -1,43 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { AppBar, Toolbar, Typography, InputBase, Button } from "@mui/material";
 import './Header.css';
-import useSocket from "../utils/useSocket";
-import { useEffect, useState } from "react";
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 
-const Header = () => {
-  // const socket = useSocket("https://filestore.visionproje.com");
-  // const [serverResponse, setServerResponse] = useState("");
-  // const [inputText, setInputText] = useState("What is going on?");
 
-  // useEffect(() => {
-  //   if (socket) {
-  //     socket.on("searchStream", (msg) => {
-  //       console.log("Received message: ", msg);
-  //       setServerResponse((prev) => prev + msg);
-  //     });
-  //   }
-  // }, [socket]);
-
-  // const sendTextToServer = () => {
-  //   setServerResponse("");
-  //   if (socket && socket.connected) {
-  //     socket.emit("searchStream", {"path": "abc", "query": inputText});
-  //   } else {
-  //     console.error("Socket is not connected");
-  //   }
-  // };
-
+const PathElement = ({path, folder, index}) => {
+  const calc_path = (index) => {
+    let path_to_folder = '';
+    for (let i = 0; i <= index; i++) {
+      path_to_folder += path.split('/')[i];
+      if (i !== index) {
+        path_to_folder += '/';
+      }
+    }
+    return path_to_folder;
+  }
 
   return (
+    <div style={{display: "flex", alignItems: 'center'}}>
+      <p>{" > "}</p>
+      <NavLink key={index} to={`/files/${calc_path(index)}`} style={{color: 'white', textDecoration: 'none'}}>
+      { 
+        index === path.split('/').length - 1 ?
+        <u style={{marginLeft: "12px", marginRight: "12px"}}>{folder}</u>
+        :
+        <p style={{marginLeft: "12px", marginRight: "12px"}}>{folder}</p>
+      }
+      </NavLink>
+    </div>
+  )
+}
+
+const Header = ({path}) => {
+
+  
+  return (
     <AppBar position="static" className="app-bar">
-      <Toolbar>
-        <Typography variant="h6" paddingLeft={"60px"}>
-          Workspace
-        </Typography>
-        {/* <Button variant="contained" color="primary" style={{marginLeft: "auto", marginRight: "60px"}} onClick={sendTextToServer}>
-          hehe, testing
-        </Button> */}
-      </Toolbar>
+      <div style={{height: '44px', paddingTop: "12px", background: 'transparent', display: 'flex', justifyContent: 'left', alignItems: 'center', flexDirection: 'row', position: 'relative'}}> 
+        { 
+          <NavLink to={`/files`} style={{color: 'white', textDecoration: 'none'}}>
+            {/* if path is empty, underline Home */}
+            {
+              path === '' ?
+              <u style={{marginLeft: "12px", marginRight: "12px"}}>Home </u>
+              :
+              <p style={{marginLeft: "12px", marginRight: "12px"}}>Home </p>
+            }
+          </NavLink>
+        }
+        {
+          path && 
+          path.split('/').map((folder, index) => (            
+            <PathElement key = {index} path={path} folder={folder} index={index} />
+          ))
+        }
+      </div>
     </AppBar>
   );
 };

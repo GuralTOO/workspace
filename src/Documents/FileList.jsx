@@ -7,6 +7,7 @@ import { getFiles } from '../utils/utils';
 import './FileManager.css';
 import { NavLink, useLoaderData, useLocation, useParams } from 'react-router-dom';
 import { Typography, Paper} from '@mui/material';
+import Header from './Header';
 
 
 const FileList = ({userID}) => {
@@ -86,25 +87,7 @@ const FileList = ({userID}) => {
 
   return (
     <div className='file-manager-container'>
-      <div style={{height: '44px', background: 'transparent', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column', position: 'relative'}}> 
-        <Typography variant="h6" style={{paddingLeft: '2vw'}}>
-          { 
-            <NavLink to={`/files`} style={{color: 'white', textDecoration: 'none'}}>
-              {/* underlined Home */}
-              <u>Home</u>
-            </NavLink>
-          }
-          {
-            path && 
-            path.split('/').map((folder, index) => (
-              <NavLink key={index} to={`/files/${folder}`} style={{color: 'white', textDecoration: 'none'}}>
-               {` > `}<u>{folder}</u>
-              </NavLink>
-            ))
-          }
-        </Typography> 
-        <div style={{width: "100%", height: "2px", backgroundColor: "grey", position: 'absolute', bottom: 0}}></div>
-      </div>
+      <Header path={path}/>
       <div style={{display: 'flex', flexDirection: 'row', height: '95%'}}>          
         {/* left side */}
         <div style={{width: `${split}%`,  paddingLeft: "2vw", marginTop: 15, overflowY: 'auto'}}>
