@@ -6,6 +6,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { getFiles } from '../utils/utils';
 import '../App.css'
 import { Button } from '@mui/material';
+import logo from '../assets/RapidReview_logo.svg'
+
+
 const Sidebar = ({userID}) => {
 
   
@@ -22,7 +25,7 @@ const Sidebar = ({userID}) => {
     color: 'white',
     // make the button background color change when hovered over
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      backgroundColor: 'rgba(0, 255, 255, 0.1)',
     },
     fontSize: '15px',
     // ground the elements to the bottom of the button
@@ -45,6 +48,7 @@ const Sidebar = ({userID}) => {
   }, [fetchFiles]);
 
 
+  
   const isSmallScreen = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
 
@@ -70,7 +74,8 @@ const Sidebar = ({userID}) => {
   return (
     <div style = {{flex: 1, flexDirection: "row", position: 'relative'}}>
       <div style={{height: '100vh', width: '150px', borderRight: '2px solid grey', position: 'fixed', flex: 1, flexDirection: 'column'}}>
-        <h2>W</h2>
+        <h2>RR</h2>
+        {/* create a small circle div for the logo */}
         {/* folder navigation div */}
         <div>
           <Button style={buttonStyle} component={NavLink} to="/files" >
@@ -81,10 +86,7 @@ const Sidebar = ({userID}) => {
           {outerFolders.map((folder, index) => (
             // <NavLink key={index} to={`/files/${folder.name}`} >
             <Button key={index} style={buttonStyle} component={NavLink} to={`/files/${folder.name}`} >
-              {/* </> */}
-              {/* add space after the icon */}
               &nbsp;
-              {/* if the name is longer than 8, print first five letters and ... else, print the name*/}
               {folder.name.length > 9 ? folder.name.substring(0, 7) + "..." : folder.name}
             </Button>
           ))}

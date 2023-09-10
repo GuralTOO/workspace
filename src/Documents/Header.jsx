@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, InputBase, Button } from "@mui/material";
+import React from "react";
+import { AppBar} from "@mui/material";
 import './Header.css';
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { NavLink, } from 'react-router-dom';
 
 
 const PathElement = ({path, folder, index}) => {
@@ -15,16 +15,20 @@ const PathElement = ({path, folder, index}) => {
     }
     return path_to_folder;
   }
-
+  // set short folder name to first 10 characters
+  const new_folder = folder.length > 10 ? folder.substring(0, 7) + "..." : folder;
   return (
     <div style={{display: "flex", alignItems: 'center'}}>
       <p>{" > "}</p>
       <NavLink key={index} to={`/files/${calc_path(index)}`} style={{color: 'white', textDecoration: 'none'}}>
       { 
         index === path.split('/').length - 1 ?
-        <u style={{marginLeft: "12px", marginRight: "12px"}}>{folder}</u>
+        // make the text bold if it is the last element in the path        
+        <u style={{marginLeft: "12px", marginRight: "12px", 
+          // textEmphasis: 'bold', textDecoration: 'none'   
+        }}>{new_folder}</u>
         :
-        <p style={{marginLeft: "12px", marginRight: "12px"}}>{folder}</p>
+        <p style={{marginLeft: "12px", marginRight: "12px"}}>{new_folder}</p>
       }
       </NavLink>
     </div>

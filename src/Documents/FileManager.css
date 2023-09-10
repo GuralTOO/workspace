@@ -1,38 +1,23 @@
 .file-manager-container {
-    height: 100vh; 
-    max-height: 100vh;
-    overflow: auto;    
-  }
-  
-.sidebar {
-  width: 200px; /* Adjust the width as needed */
-  /* background-color: #f0f0f0; */
-  padding: 20px;
+  /* make the height full screen */
+  height: 100vh;
+  max-height: 100vh;
+  overflow: auto;    
+  /* background-color: aqua; */
 }
-
-.left-side-container {
-  width: 50%; /* Adjust according to the initial state of split */
-  padding-left: 2vw; 
-  margin-top: 15px;
-  max-height: 95vh; 
-  overflow-y: auto;
-
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  ::-webkit-scrollbar {
-    display: none;
-  }
-    
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-
-}
-  
   
 .file-list-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-bottom: 20px;
+  height: 100%;
+  padding-bottom: 16px;
+  padding-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
-
+.file-list-container::-webkit-scrollbar {
+  display: none;
+}

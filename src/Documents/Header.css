@@ -11,6 +11,7 @@
 
 .MuiAppBar-root.app-bar {
   background-color: #101010;
+  /* background-color: transparent; */
   height: 50px;
   /* border-bottom: 1px solid grey; */
 }

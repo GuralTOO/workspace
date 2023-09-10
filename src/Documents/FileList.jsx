@@ -6,7 +6,6 @@ import CreateFolder from './CreateFolder';
 import { getFiles } from '../utils/utils';
 import './FileManager.css';
 import { NavLink, useLoaderData, useLocation, useParams } from 'react-router-dom';
-import { Typography, Paper} from '@mui/material';
 import Header from './Header';
 
 
@@ -14,8 +13,8 @@ const FileList = ({userID}) => {
   // const location = useLocation(); // add this line
   const params = useParams();
   const [path, setPath] = useState(params['*'] || '');
-  const [files, setFiles] = useState([]);
   const [fullPath, setFullPath] = useState(userID + '/' + path);
+  const [files, setFiles] = useState([]);
 
   const fetchFiles = useCallback(() => {
     getFiles(fullPath).then((files) => {
@@ -82,42 +81,41 @@ const FileList = ({userID}) => {
     clearTimeout(highlightTimeoutId);
     setHighlightTimeoutId(null);
   }, [highlightTimeoutId]);
-  const folderName = path ? path.substring(path.lastIndexOf("/")+1) : "Home";
   const [chatBoxText, setChatBoxText] = useState("");
 
   return (
     <div className='file-manager-container'>
       <Header path={path}/>
-      <div style={{display: 'flex', flexDirection: 'row', height: '95%'}}>          
+      <div style={{display: 'flex', flexDirection: 'row', height: "95%"}}>          
         {/* left side */}
-        <div style={{width: `${split}%`,  paddingLeft: "2vw", marginTop: 15, overflowY: 'auto'}}>
-          <div className="file-list-container">
+        <div style={{width: `${split}%`}}>
+          <div className = "file-list-container">
               {files.map((file, index) => (
-                index === 0 ? <CreateFolder parentPath={fullPath} onFolderCreate={fetchFiles  } />
-                : file.name.includes(".pdf") ? 
+              index === 0 ? <CreateFolder parentPath={fullPath} onFolderCreate={fetchFiles  } />
+              : file.name.includes(".pdf") || file.name.includes(".PDF") ? 
                   <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
                   : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>
-            ))}
+              ))}
           </div>
-        </div>
+        </div> 
         {/* vertical straight line */}
         <div 
-        style={{
-          width: "8px", 
-          height: "100%", 
-          display: 'flex', 
-          justifyContent: 'center', 
-          cursor: 'col-resize', 
-          backgroundColor: dragging || highlightTimeoutId === "highlight" ? 'orange' : 'transparent' // Add the orange highlight
-        }}
-        onMouseDown={handleMouseDown}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+          style={{
+            width: "8px", 
+            height: "100%", 
+            display: 'flex', 
+            justifyContent: 'center', 
+            cursor: 'col-resize', 
+            backgroundColor: dragging || highlightTimeoutId === "highlight" ? 'orange' : 'transparent' // Add the orange highlight
+          }}
+          onMouseDown={handleMouseDown}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <div style={{width: "2px", height: "100%", backgroundColor: "grey"}}></div>
         </div>
         {/* right side */}
-        <div style={{width: `${100 - split}%`, color: 'biege', display: 'flex', justifyContent: 'center', position: 'relative'}}>
+        <div style={{width: `${100 - split}%`, color: 'beige', display: 'flex', justifyContent: 'center', position: 'relative'}}>
           <div style = {{padding: 20, marginTop: 15, color: 'beige'}}>
             {chatBoxText}
           </div>
