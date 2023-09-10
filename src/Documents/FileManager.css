@@ -2,7 +2,7 @@
   /* make the height full screen */
   height: 100vh;
   max-height: 100vh;
-  overflow: auto;    
+  /* overflow: auto;     */
   /* background-color: aqua; */
 }
   

@@ -84,9 +84,15 @@ const FileList = ({userID}) => {
   const [chatBoxText, setChatBoxText] = useState("");
 
   return (
+    // style the div to grow to fill the remaining height of the page
     <div className='file-manager-container'>
       <Header path={path}/>
-      <div style={{display: 'flex', flexDirection: 'row', height: "95%"}}>          
+      {/* set height of the div to 100vh - 150 px */}
+      <div style={{
+        height: 'calc(100vh - 50px)',
+        display: 'flex', 
+        flexDirection: 'row',          
+      }}>
         {/* left side */}
         <div style={{width: `${split}%`}}>
           <div className = "file-list-container">
@@ -119,12 +125,13 @@ const FileList = ({userID}) => {
           <div style = {{padding: 20, marginTop: 15, color: 'beige'}}>
             {chatBoxText}
           </div>
-          <div style={{padding: 20, bottom: 0, width: "85%", position: 'absolute'}}>
+          <div style={{padding: 20, bottom: 0, width: "95%", position: 'absolute'}}>
             <Chatbox folderPath = {fullPath} outputMessage = {chatBoxText} setOutputMessage = {setChatBoxText}/>
           </div>
         </div>          
       </div>
     </div>
+
   );
 }
 

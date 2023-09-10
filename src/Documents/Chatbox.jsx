@@ -87,7 +87,7 @@ const Chatbox = ({folderPath, outputMessage, setOutputMessage}) => {
     }
 
     return (
-        <div style={{marginBottom: 20}}>
+        <div style={{paddingBottom: 20}}>
             <form onSubmit={handleSendStream}>
                 <Box display="flex" >
                     <TextField 
