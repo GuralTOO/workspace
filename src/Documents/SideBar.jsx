@@ -73,7 +73,7 @@ const Sidebar = ({userID}) => {
 
   return (
     <div style = {{flex: 1, flexDirection: "row", position: 'relative'}}>
-      <div style={{height: '100vh', width: '150px', borderRight: '2px solid grey', position: 'fixed', flex: 1, flexDirection: 'column'}}>
+      <div style={{height: '100vh', width: '150px', borderRight: '1px solid grey', position: 'fixed', flex: 1, flexDirection: 'column'}}>
         <h2>RR</h2>
         {/* create a small circle div for the logo */}
         {/* folder navigation div */}

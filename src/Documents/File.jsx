@@ -56,10 +56,6 @@ const File = ({ fileName, onFileClick }) => {
     <div 
       className = "file-mini"
       onClick={handleClick} 
-      // onContextMenu={(event) => {
-      //   event.preventDefault();
-      //   handleMenuClick(event);
-      // }}
     >
       <div className='file-info'>
         <Menu

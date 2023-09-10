@@ -118,7 +118,7 @@ const FileList = ({userID}) => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div style={{width: "2px", height: "100%", backgroundColor: "grey"}}></div>
+          <div style={{width: "1px", height: "100%", backgroundColor: "grey"}}></div>
         </div>
         {/* right side */}
         <div style={{width: `${100 - split}%`, color: 'beige', display: 'flex', justifyContent: 'center', position: 'relative'}}>
