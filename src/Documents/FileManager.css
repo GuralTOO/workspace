@@ -17,6 +17,7 @@
   padding-right: 16px;
   overflow-y: auto;
   scrollbar-width: none;
+  align-content: flex-start;
 }
 .file-list-container::-webkit-scrollbar {
   display: none;
