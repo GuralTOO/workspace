@@ -2,6 +2,8 @@ import React from 'react';
 import FolderIcon from "@mui/icons-material/FolderOutlined";
 import { useNavigate, Link } from 'react-router-dom';
 import "./Folder.css";
+import "./File.css"
+import * as Separator from '@radix-ui/react-separator';
 
 const Folder = ({ folderName, folderPath }) => {
   // set folderPath equal to the current path without the userID in front
@@ -18,16 +20,21 @@ const Folder = ({ folderName, folderPath }) => {
     : folderName;
 
   return (
-    <Link to={shortFolderPath}>
-      <div className = "folder-mini">
+    <div className='file-mini-outside'>
+      <div 
+        className = "file-mini"
+        onClick={handleFolderClick} 
+      > 
         <div className='folder-icon'>
           <FolderIcon fontSize="inherit" />
         </div>
+      </div>   
+      <Separator.Root className="SeparatorRoot" />
         <div className='folder-info'>
           <div className="folder-name">{truncatedFileName}</div>
         </div>
       </div>
-    </Link>
+  
   );
 };
 

@@ -7,6 +7,8 @@ import Auth from './Auth';
 import Account from './Account';
 import FileList from './Documents/FileList';
 import Sidebar from './Documents/SideBar';
+import '@radix-ui/themes/styles.css';
+import { Theme } from '@radix-ui/themes';
 
 
 function App() {
@@ -28,6 +30,14 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Theme
+        accentColor="mauve"
+        grayColor="gray"
+        panelBackground="solid"
+        scaling="100%"
+        radius="full"
+      >
+
       <div>
       {!session ? <Auth /> :       
         <RouterProvider router={
@@ -50,6 +60,7 @@ function App() {
         } />
       } 
       </div>
+      </Theme>
     </ThemeProvider>
   );
 }

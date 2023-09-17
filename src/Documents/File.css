@@ -1,25 +1,52 @@
+@import '@radix-ui/colors/slate.css';
+@import '@radix-ui/colors/gray.css';
+
+.SeparatorRoot {
+  background-color: var(--gray-7);
+}
+.SeparatorRoot[data-orientation='horizontal'] {
+  height: 1px;
+  width: 100%;
+}
+
 .file-mini {
     /* Adjust these values as needed */
     width: 150px;
     height: 150px;
-    border: 1px solid grey;
-    margin: 10px;
+    /* border: 1px solid var(--gray-7); */
+    /* border-bottom: 1px solid grey; */
+    background: var(--gray-3);
+    /* margin: 10px; */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
     position: relative;
   }
   
+.file-mini-outside {
+  width: 150px;
+  height: 190px;
+  /* border: 1px solid grey; */
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-end; */
+  align-items: flex-start;
+  text-align: center;
+  position: relative;
+}
+
   .file-info {
     position: absolute;
     bottom: 0;
     width: 100%;
     /* background-color: rgba(0, 0, 0, 0.7); */
-    padding: 5px;
+    padding: 3px;
     display: flex;
     align-items: center;
+    flex-direction: row;
   }
 
 
@@ -58,7 +85,7 @@
   .file-name {
     flex: 1;
     font-size: small;
-    color: white;
+    color: var(--slate-11);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

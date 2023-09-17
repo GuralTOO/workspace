@@ -58,6 +58,7 @@ const Header = ({path}) => {
             <PathElement key = {index} path={path} folder={folder} index={index} />
           ))
         }
+        
       </div>
     </AppBar>
   );
