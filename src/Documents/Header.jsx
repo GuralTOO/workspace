@@ -1,5 +1,4 @@
 import React from "react";
-import { AppBar} from "@mui/material";
 import './Header.css';
 import { NavLink, } from 'react-router-dom';
 
@@ -19,16 +18,14 @@ const PathElement = ({path, folder, index}) => {
   const new_folder = folder.length > 10 ? folder.substring(0, 7) + "..." : folder;
   return (
     <div style={{display: "flex", alignItems: 'center'}}>
-      <p>{" > "}</p>
-      <NavLink key={index} to={`/files/${calc_path(index)}`} style={{color: 'white', textDecoration: 'none'}}>
+      <p style={{color: "black"}}>{" > "}</p>
+      <NavLink key={index} to={`/files/${calc_path(index)}`}>
       { 
         index === path.split('/').length - 1 ?
         // make the text bold if it is the last element in the path        
-        <u style={{marginLeft: "12px", marginRight: "12px", 
-          // textEmphasis: 'bold', textDecoration: 'none'   
-        }}>{new_folder}</u>
+        <u style={{marginLeft: "12px", marginRight: "12px", color: "black"}} className="path-element">{new_folder}</u>
         :
-        <p style={{marginLeft: "12px", marginRight: "12px"}}>{new_folder}</p>
+        <p style={{marginLeft: "12px", marginRight: "12px", color: "black"}} className="path-element">{new_folder}</p>
       }
       </NavLink>
     </div>
@@ -39,28 +36,33 @@ const Header = ({path}) => {
 
   
   return (
-    <AppBar position="static" className="app-bar">
-      <div style={{height: '44px', paddingTop: "12px", background: 'transparent', display: 'flex', justifyContent: 'left', alignItems: 'center', flexDirection: 'row', position: 'relative'}}> 
+    // <AppBar position="static" className="app-bar">
+      <div style={{
+          height: '60px', paddingTop: "12px", background: 'transparent',
+          display: 'flex', justifyContent: 'left', alignItems: 'center',
+          flexDirection: 'row', position: 'relative', color: 'black'
+        }} 
+      > 
         { 
-          <NavLink to={`/files`} style={{color: 'white', textDecoration: 'none'}}>
+          <NavLink to={`/files`} className='path-element'>
             {/* if path is empty, underline Home */}
             {
               path === '' ?
-              <u style={{marginLeft: "12px", marginRight: "12px"}}>Home </u>
+              <u style={{marginLeft: "12px", marginRight: "12px", color: "black"}} >Home </u>
               :
-              <p style={{marginLeft: "12px", marginRight: "12px"}}>Home </p>
+              <p style={{marginLeft: "12px", marginRight: "12px", color: "black"}}>Home </p>
             }
           </NavLink>
         }
         {
           path && 
           path.split('/').map((folder, index) => (            
-            <PathElement key = {index} path={path} folder={folder} index={index} />
+            <PathElement key = {index} path={path} folder={folder} index={index} className="path-element" />
           ))
         }
         
       </div>
-    </AppBar>
+    // </AppBar>
   );
 };
 

@@ -7,6 +7,7 @@ import { getFiles } from '../utils/utils';
 import './FileManager.css';
 import { NavLink, useLoaderData, useLocation, useParams } from 'react-router-dom';
 import Header from './Header';
+import { Flex } from '@radix-ui/themes';
 
 
 const FileList = ({userID}) => {
@@ -89,29 +90,34 @@ const FileList = ({userID}) => {
       <Header path={path}/>
       {/* set height of the div to 100vh - 150 px */}
       <div style={{
-        height: 'calc(100vh - 50px)',
+        height: 'calc(100vh - 60px)',
         display: 'flex', 
-        flexDirection: 'row',          
+        flexDirection: 'row',  
       }}>
         {/* left side */}
         <div style={{width: `${split}%`}}>
-          <div className = "file-list-container">
-              {files.map((file, index) => (
-              index === 0 ? <CreateFolder parentPath={fullPath} onFolderCreate={fetchFiles  } />
-              : file.name.includes(".pdf") || file.name.includes(".PDF") ? 
-                  <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
-                  : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>
-              ))}
-          </div>
+          <Flex gap="3" direction="row"
+            className = "file-list-container"
+          >
+            {files.map((file, index) => (
+            index === 0 ? <CreateFolder parentPath={fullPath} onFolderCreate={fetchFiles  } />
+            : file.name.includes(".pdf") || file.name.includes(".PDF") ? 
+                <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
+                : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>
+            ))}
+          </Flex>
         </div> 
         {/* vertical straight line */}
         <div 
           style={{
             width: "8px", 
-            height: "100%", 
-            display: 'flex', 
+            height: "80%", 
+            display: 'flex',
             justifyContent: 'center', 
+            alignItems: 'center',
             cursor: 'col-resize', 
+            marginTop: "4%",
+            marginBottom: "4%",
             backgroundColor: dragging || highlightTimeoutId === "highlight" ? 'orange' : 'transparent' // Add the orange highlight
           }}
           onMouseDown={handleMouseDown}

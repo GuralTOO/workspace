@@ -1,0 +1,45 @@
+/* Path: src/Documents/sidebar.css */
+/* sidebar design for folder navigation*/
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css';
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/slate.css';
+@import '@radix-ui/colors/gold.css';
+
+.heading {
+    color: var(--mauve-12)
+}
+
+.button-style {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: flex-start;
+    background-color: transparent;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 1px;
+    /* color: white; */
+    /* font-size: 15px; */
+    align-items: flex-start;
+  }
+  
+    .button-style:hover {
+        background-color: var(--gray-4);
+    }
+
+    .button-style:focus {
+        background-color: var(--gray-4);
+    }
+
+    .button-style:active {
+        background-color: var(--mauve-6);
+    }
+
+.sidebar {
+    background-color: var(--slate-2);
+    color: var(--slate-12);
+}

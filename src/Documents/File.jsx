@@ -3,13 +3,15 @@ import { Button, Menu, MenuItem } from '@mui/material';
 import DescriptionIcon from '@mui/icons-material/Description';
 import Foldericon from '@mui/icons-material/Folder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { FileTextIcon } from '@radix-ui/react-icons';
 import './File.css' 
 import './accordion.css'
 import classNames from 'classnames';
+import { Box, Card, Separator, Text, Flex } from '@radix-ui/themes'
 import { ChevronDownIcon } from '@radix-ui/react-icons';
-import * as Separator from '@radix-ui/react-separator';
+// import * as Separator from '@radix-ui/react-separator';
 import * as Accordion from '@radix-ui/react-accordion';
-
+import FileDetails from './FileDetails';
 
 const AccordionTrigger = React.forwardRef(({ children, className, ...props }, forwardedRef) => (
   <Accordion.Header className="AccordionHeader">
@@ -83,19 +85,28 @@ const File = ({ fileName, onFileClick }) => {
 
 
   return (
-    <div className='file-mini-outside'>
+    <Box size="1" variant="surface" className="like-a-card">
       <div 
         className = "file-mini"
         onClick={handleClick} 
       >
+        <div className='file-icon'>
+          <FileTextIcon style={{size: "large"}}/>
+        </div>
       </div>
-      <Separator.Root className="SeparatorRoot" />
-      <Accordion.Root className="AccordionRoot" type="single" collapsible >
+      <Separator size="4" mb="2" />
+      <Flex gap="2" >
+        <Text color="gray" highContrast>
+          {fileName}
+        </Text>
+        <FileDetails filePath={fileName}/>
+      </Flex>
+      {/* <Accordion.Root className="AccordionRoot" type="single" collapsible >
         <Accordion.Item className="AccordionItem" value="item-1">
           <AccordionTrigger>{truncatedFileName}</AccordionTrigger>
           <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
         </Accordion.Item>
-      </Accordion.Root>
+      </Accordion.Root> */}
       {/* <div className='file-info'>
         <Menu
           id="simple-menu"
@@ -130,7 +141,7 @@ const File = ({ fileName, onFileClick }) => {
         </Button>
         <div className="file-name">{truncatedFileName}</div>
       </div> */}
-    </div>
+    </Box>
   );
 };
 

@@ -1,41 +1,28 @@
 @import '@radix-ui/colors/slate.css';
 @import '@radix-ui/colors/gray.css';
 
-.SeparatorRoot {
-  background-color: var(--gray-7);
-}
-.SeparatorRoot[data-orientation='horizontal'] {
-  height: 1px;
-  width: 100%;
-}
-
 .file-mini {
     /* Adjust these values as needed */
-    width: 150px;
+    width: "100%";
     height: 150px;
-    /* border: 1px solid var(--gray-7); */
-    /* border-bottom: 1px solid grey; */
     background: var(--gray-3);
-    /* margin: 10px; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     text-align: center;
     position: relative;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
   }
   
-.file-mini-outside {
-  width: 150px;
-  height: 190px;
-  /* border: 1px solid grey; */
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  /* justify-content: flex-end; */
-  align-items: flex-start;
-  text-align: center;
-  position: relative;
+.like-a-card {
+  height: 200px; 
+  width: 170px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: var(--slate-9);
+  border-style: solid;
 }
 
   .file-info {
@@ -72,10 +59,13 @@
   }
 
   .file-icon {
-    margin-right: 5px;
     display: flex;
     align-items: center;
-    color: white;
+    justify-content: center;
+    font-size: 75px; /* Adjust the font size as needed */
+    height: 50%;
+    flex-grow: 1;
+    padding-bottom: 5%;
   }
   
   .file-icon span {
