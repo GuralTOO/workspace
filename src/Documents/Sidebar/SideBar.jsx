@@ -67,9 +67,11 @@ const Sidebar = ({userID}) => {
         style={{height: '100vh', width: '150px', borderRight: '1px solid grey', position: 'fixed'}}
         className='sidebar'
       >
-        <Heading highContrast style = {{marginTop: '20px', marginBottom: '10px'}} className='heading'>
-          RR
-        </Heading>
+        <NavLink to="/files">
+          <Heading highContrast style = {{marginTop: '20px', marginBottom: '10px'}} className='heading'>
+            RR
+          </Heading>
+        </NavLink>
         {/* <Grid columns="1" width="100%" justify="start" align="start">
           <NavLink to="/files">
             <Button variant="surface" size="3" color = "gray" highContrast style={{width: "100%", justifyContent: "flex-start"}} >

@@ -27,6 +27,7 @@
 }
 
 .path-element {
-  /* color: var(--gray-12); */
-  color: "black"
+  color: var(--slate-12);
+  font-size: 18px;
+  /* color: "black" */
 }

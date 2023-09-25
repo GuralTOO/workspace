@@ -8,7 +8,7 @@
 @import '@radix-ui/colors/gold.css';
 
 .heading {
-    color: var(--mauve-12)
+    color: var(--slate-12)
 }
 
 .button-style {
@@ -40,6 +40,6 @@
     }
 
 .sidebar {
-    background-color: var(--slate-2);
+    background-color: var(--slate-1);
     color: var(--slate-12);
 }

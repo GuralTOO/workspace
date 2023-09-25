@@ -44,7 +44,7 @@ const Header = ({path}) => {
         }} 
       > 
         { 
-          <NavLink to={`/files`} className='path-element'>
+          <NavLink to={`/files`} style={{textDecoration: 'none'}}  className='path-element'>
             {/* if path is empty, underline Home */}
             {
               path === '' ?

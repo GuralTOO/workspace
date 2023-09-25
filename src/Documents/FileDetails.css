@@ -1,53 +1,52 @@
 @import '@radix-ui/colors/black-alpha.css';
 @import '@radix-ui/colors/mauve.css';
-@import '@radix-ui/colors/mauve-dark.css';
 @import '@radix-ui/colors/violet.css';
-@import '@radix-ui/colors/slate.css';
 
-.ScrollAreaRoot {
+.ScrollAreaRootY {
   width: 100%;
-  height: 60%;
+  height: 150px;
+  border-radius: 4px;
   overflow: hidden;
   /* box-shadow: 0 2px 10px var(--black-a7); */
-  background-color: transparent;
-  --scrollbar-size: 0px;
+  /* background-color: white; */
+  --scrollbar-size: 10px;
 }
 
-.ScrollAreaViewport {
+.ScrollAreaViewportY {
   width: 100%;
   height: 100%;
   border-radius: inherit;
 }
 
-.ScrollAreaScrollbar {
+.ScrollAreaScrollbarY {
   display: flex;
   /* ensures no selection */
   user-select: none;
   /* disable browser handling of all panning and zooming gestures on touch devices */
   touch-action: none;
-  /* padding: 2px; */
+  padding: 2px;
   background: var(--black-a6);
   transition: background 160ms ease-out;
 }
-.ScrollAreaScrollbar:hover {
+.ScrollAreaScrollbarY:hover {
   background: var(--black-a8);
 }
-.ScrollAreaScrollbar[data-orientation='vertical'] {
+.ScrollAreaScrollbarY[data-orientation='vertical'] {
   width: var(--scrollbar-size);
 }
-.ScrollAreaScrollbar[data-orientation='horizontal'] {
+.ScrollAreaScrollbarY[data-orientation='horizontal'] {
   flex-direction: column;
   height: var(--scrollbar-size);
 }
 
-.ScrollAreaThumb {
+.ScrollAreaThumbY {
   flex: 1;
   background: var(--mauve-10);
   border-radius: var(--scrollbar-size);
   position: relative;
 }
 /* increase target size for touch devices https://www.w3.org/WAI/WCAG21/Understanding/target-size.html */
-.ScrollAreaThumb::before {
+.ScrollAreaThumbY::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -59,40 +58,22 @@
   min-height: 44px;
 }
 
-.ScrollAreaCorner {
+.ScrollAreaCornerY {
   background: var(--black-a8);
 }
 
-.Text {
-  color: var(--slate-12);
-  /* font-size: 15px; */
-  /* line-height: 18px; */
+.TextY {
+  color: var(--violet-11);
+  font-size: 15px;
+  line-height: 18px;
   font-weight: 500;
-  /* margin-bottom: 10px; */
 }
 
-.Tag {
-  color: var(--slate-12);
+.TagY {
+  color: var(--mauve-12);
   font-size: 13px;
   line-height: 18px;
   margin-top: 10px;
   border-top: 1px solid var(--mauve-6);
   padding-top: 10px;
 }
-
-.folder-item {
-  padding: 10px;
-  margin-left: -45px;
-  cursor: pointer;
-  color: var(--slate-12);
-  background-color: transparent;
-  transition: background-color 0.2s;
-  border-bottom: 1px solid var(--gray-7);
-  border-bottom-width: '5px';
-}
-
-.folder-item:hover {
-  /* background-color: var(--gray-1); */
-  background-color: var(--slate-4);
-}
-
