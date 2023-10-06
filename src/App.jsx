@@ -28,9 +28,40 @@ function App() {
 
   const theme = createTheme();
 
+  // return (
+  //   <ThemeProvider theme={theme}>
+  //     <Theme
+  //       id="theme"
+  //       accentColor="iris"
+  //       appearance='light'
+  //       grayColor="slate"
+  //       panelBackground="translucent"
+  //       scaling="100%"
+  //       radius="small"
+  //       scheme="light"
+  //       tone = ""
+  //       weight="normal"
+  //     >
+  //       <Auth/>
+  //     </Theme>
+  //   </ThemeProvider>
+  // )
+
+
   return (
     <ThemeProvider theme={theme}>
-      
+      <Theme
+        id="theme"
+        accentColor="iris"
+        appearance='light'
+        grayColor="slate"
+        panelBackground="translucent"
+        scaling="100%"
+        radius="small"
+        scheme="light"
+        tone = ""
+        weight="normal"
+      >
       <div>
       {!session ? <Auth /> :       
         <RouterProvider router={
@@ -53,7 +84,7 @@ function App() {
         } />
       } 
       </div>
-      {/* </Theme> */}
+      </Theme>
     </ThemeProvider>
   );
 }

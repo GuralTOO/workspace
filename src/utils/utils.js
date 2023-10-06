@@ -6,11 +6,35 @@ export async function addFile(filePath, file) {
     .from("documents")
     .upload(filePath, file);
 
+  // get file id from the uploaded file
+  const fileId = data.id;
+  const rowCreationError = 0;
+
   if (error) {
     alert("Error uploading file.");
     console.error("Error uploading file: ", error);
   } else {
-    // console.log("file successfully uploaded to " + filePath);
+    // add a row about the file to the "doc_data" table
+    // table schema: id, name, document_type, content_type, user_id, path, and metadata (json)
+    // metadata will be empty
+    const { data, error } = await supabase.from("doc_data").insert([
+      {
+        id: fileId,
+        name: file.name,
+        document_type: file.type,
+        content_type: "",
+        user_id: supabase.auth.user().id,
+        path: filePath,
+        metadata: {},
+      },
+    ]);
+    rowCreationError = error;
+  }
+  if (rowCreationError) {
+    alert("Error creating row.");
+    console.error("Error creating row: ", rowCreationError);
+  } else {
+    // get file link and send it to weaviate server
     try {
       let publicURL = "";
       await supabase.storage
@@ -18,7 +42,6 @@ export async function addFile(filePath, file) {
         .createSignedUrl(filePath, 60)
         .then((response) => {
           const signedUrl = response.data.signedUrl;
-          // console.log("signedUrl:", signedUrl); // Log the signed URL
           publicURL = signedUrl;
         })
         .catch((error) => {

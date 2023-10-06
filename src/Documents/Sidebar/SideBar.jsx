@@ -6,10 +6,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { getFiles } from '../../utils/utils';
 import '../../App.css'
 import { Button, Flex, Grid, Text, Strong, Theme, Heading } from '@radix-ui/themes';
-// import { Button } from '@mui/material';
-// import logo from '../../assets/icons/RapidReview.png'
-import * as Tooltip from '@radix-ui/react-tooltip';
-import * as Switch from '@radix-ui/react-switch';
 import './sidebar.css';
 import FolderNavigation from './FolderNavigation';
 
@@ -52,7 +48,7 @@ const Sidebar = ({userID}) => {
   return (
     <Theme
       id="theme"
-      accentColor="mauve"
+      accentColor="iris"
       appearance='light'
       grayColor="slate"
       panelBackground="translucent"
