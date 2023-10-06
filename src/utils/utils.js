@@ -1,7 +1,7 @@
 import { supabase } from "../supabaseClient";
 
 // function to add a file to the user's storage
-export async function addFile(filePath, file) {
+export async function addFile(filePath, file, contentType = "") {
   const { data, error } = await supabase.storage
     .from("documents")
     .upload(filePath, file);
@@ -22,7 +22,7 @@ export async function addFile(filePath, file) {
         id: fileId,
         name: file.name,
         document_type: file.type,
-        content_type: "",
+        content_type: contentType,
         user_id: supabase.auth.user().id,
         path: filePath,
         metadata: {},
@@ -56,6 +56,8 @@ export async function addFile(filePath, file) {
             type: "pdf",
             path: filePath,
             url: publicURL,
+            // adding content type to the call
+            content_type: contentType,
           },
         }
       );
