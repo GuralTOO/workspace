@@ -1,6 +1,8 @@
 @import '@radix-ui/colors/slate.css';
 @import '@radix-ui/colors/gray.css';
 @import '@radix-ui/colors/violet.css';
+@import '../colors.css';
+
 
 .file-mini {
     /* Adjust these values as needed */
@@ -23,9 +25,9 @@
   width: 170px;
   border-radius: 5px;
   border-width: 1px;
-  border-color: var(--slate-9);
+  border-color: var(--outline-color);
   border-style: solid;
-  background-color: var(--slate-2);
+  background-color: var(--slate-3);
 }
 
   .modal {
@@ -81,25 +83,23 @@
   }
   .IconButton {
     font-family: inherit;
-    /* border-radius: 100%; */
     border-width: 0;
-    /* height: 10px;
-    width: 10px; */
     display: inline-flex;
+    height: 100%;
     align-items: center;
     justify-content: center;
-    color: var(--violet-6);
     color: black;
+    margin-right: 10px;
     /* box-shadow: 0 2px 10px var(--black-a7); */
   }
   .IconButton[data-state='closed'] {
     background-color: transparent;
   }
   .IconButton[data-state='open'] {
-    background-color: var(--violet-3);
+    background-color: var(--primary-color);
   }
   .IconButton:hover {
-    background-color: var(--violet-3);
+    background-color: var(--primary-color);
   }
 
   .CollapsibleContent {

@@ -98,7 +98,7 @@ const Chatbox = ({folderPath, outputMessage, setOutputMessage}) => {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         style={{ marginRight: 8}}
-                        InputProps={{style: { color: 'beige'}}}
+                        InputProps={{style: { color: 'black'}}}
                         multiline
                         focused
                     />

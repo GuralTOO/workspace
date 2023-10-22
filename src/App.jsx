@@ -28,32 +28,13 @@ function App() {
 
   const theme = createTheme();
 
-  // return (
-  //   <ThemeProvider theme={theme}>
-  //     <Theme
-  //       id="theme"
-  //       accentColor="iris"
-  //       appearance='light'
-  //       grayColor="slate"
-  //       panelBackground="translucent"
-  //       scaling="100%"
-  //       radius="small"
-  //       scheme="light"
-  //       tone = ""
-  //       weight="normal"
-  //     >
-  //       <Auth/>
-  //     </Theme>
-  //   </ThemeProvider>
-  // )
-
 
   return (
     <ThemeProvider theme={theme}>
       <Theme
         id="theme"
-        accentColor="iris"
         appearance='light'
+        accentColor='indigo'
         grayColor="slate"
         panelBackground="translucent"
         scaling="100%"
@@ -90,34 +71,3 @@ function App() {
 }
 
 export default App;
-
-
-/*
-              path: '/', element: session ? <Sidebar /> : <Auth />,
-              children: session ? 
-              [
-                // make the home page the user's files
-                { path: '/', element: <Navigate to='/files' /> },
-                { path: '/files', element: <FileList userID={session.user.id} />,
-                  //create routes for fileId folders
-                  children: [{path: ':path', element: <FileList userID={session.user.id} />},]
-                },
-                { path: '/account', element: <Account session={session}/> },
-                // error page
-                { path: '*', element: <h1>404: Not Found</h1> }
-              ] : [],
-*/
-
-/*
-             children: [
-              <Route path="/" element={<Sidebar />}>
-                <Route path='/folder' element={<FileList />} >,
-                  <Route path=':path/*'
-                    element={<FileList />}
-                    loader={getFiles}
-                  />,
-                </Route>
-                <Route path="/account" element={<Account />} />,
-              </Route>
- 
-              */

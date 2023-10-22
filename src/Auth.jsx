@@ -1,9 +1,35 @@
-import { useState } from 'react'
-import { supabase } from './supabaseClient'
+// Desc: Login page for the app
+import { useState } from 'react';
+import { supabase } from './supabaseClient';
+import styles from './Auth.module.css'; // Assuming you're using CSS modules
+
+// New component for the email input
+function EmailInput({ value, onChange }) {
+  return (
+    <input
+      className={styles.inputField}
+      type="email"
+      placeholder="Your email"
+      value={value}
+      required
+      onChange={onChange}
+    />
+  );
+}
+
+// New component for buttons
+function AuthButton({ loading, children, ...props }) {
+  return (
+    <button className={styles.button} disabled={loading} {...props}>
+      {loading ? 'Loading...' : children}
+    </button>
+  );
+}
 
 export default function Auth() {
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+
   console.log("rendering auth");
   const dev = process.env.NODE_ENV === 'development'
   const handleLogin = async (event) => {
@@ -38,47 +64,27 @@ export default function Auth() {
     }
     setLoading(false)
   }
-  
 
   return (
-    <div className="row flex flex-center">
-      <div className="col-6 form-widget">
-        <h1 className="header" style={{color: "black"}}>Welcome to the Workspace</h1>
-        <p className="description" style={{color: "black"}}>Sign in via magic link with your email below</p>
-        <form className="form-widget" onSubmit={handleLogin}>
-          <div style={{width: '80%'}}>
-            <input
-              className="inputField"
-              type="email"
-              placeholder="Your email"
-              value={email}
-              required={true}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div >
-            <button disabled={loading} style={{width: '80%'}}>
-              {loading ? <span style={{color: "black"}}>Loading</span> : <span style={{color: "black"}}>Send magic link</span>}
-            </button>
+    <div className={styles.container}>
+      <h1 className={styles.header}>Welcome to the Workspace</h1>
+      <div className={styles.formWidget}>
+        <p className={styles.instructions}>Sign in with your email</p>
+        <form onSubmit={handleLogin}>
+          <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} />
+          <div className={styles.links}>
+            <AuthButton loading={loading}>Email Sign In</AuthButton>
           </div>
         </form>
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
-          </div>
-          <div >
-            <span style={{color: "gray"}}>
-              Or continue with
-            </span>
-          </div>
+        <div className={styles.separator}>
+          <span>Or continue with</span>
         </div>
-        <div className="links">
-          <button color="black" disabled={loading} 
-            onClick={handleLoginWithGoogle}>
-            <span style={{color: "black"}}>Google</span>
-          </button>
+        <div className={styles.links}>
+          <AuthButton loading={loading} onClick={handleLoginWithGoogle}>
+            Google
+          </AuthButton>
         </div>
       </div>
     </div>
-  )
+  );
 }

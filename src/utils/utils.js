@@ -1,75 +1,33 @@
 import { supabase } from "../supabaseClient";
+import {
+  uploadToStorage,
+  addFileDataToDatabase,
+  updateMetadataInDatabase,
+  getSignedURL,
+  invokeUploadFunction,
+} from "./upload_file_helpers";
 
-// function to add a file to the user's storage
-export async function addFile(filePath, file, contentType = "") {
-  const { data, error } = await supabase.storage
-    .from("documents")
-    .upload(filePath, file);
+export async function addFile(filePath, file, contentType = "research") {
+  try {
+    const { data, error } = await uploadToStorage(filePath, file);
+    if (error) throw new Error("Error uploading file.");
 
-  // get file id from the uploaded file
-  const fileId = data.id;
-  const rowCreationError = 0;
+    const userId = filePath.split("/")[0];
+    await addFileDataToDatabase(file, contentType, userId, data.path);
 
-  if (error) {
-    alert("Error uploading file.");
-    console.error("Error uploading file: ", error);
-  } else {
-    // add a row about the file to the "doc_data" table
-    // table schema: id, name, document_type, content_type, user_id, path, and metadata (json)
-    // metadata will be empty
-    const { data, error } = await supabase.from("doc_data").insert([
-      {
-        id: fileId,
-        name: file.name,
-        document_type: file.type,
-        content_type: contentType,
-        user_id: supabase.auth.user().id,
-        path: filePath,
-        metadata: {},
-      },
-    ]);
-    rowCreationError = error;
-  }
-  if (rowCreationError) {
-    alert("Error creating row.");
-    console.error("Error creating row: ", rowCreationError);
-  } else {
-    // get file link and send it to weaviate server
-    try {
-      let publicURL = "";
-      await supabase.storage
-        .from("documents")
-        .createSignedUrl(filePath, 60)
-        .then((response) => {
-          const signedUrl = response.data.signedUrl;
-          publicURL = signedUrl;
-        })
-        .catch((error) => {
-          console.log("Error creating signed URL:", error);
-        });
+    const publicURL = await getSignedURL(filePath);
 
-      console.log("public url: " + publicURL);
-      const { data, error } = await supabase.functions.invoke(
-        "weaviate-client",
-        {
-          body: {
-            type: "pdf",
-            path: filePath,
-            url: publicURL,
-            // adding content type to the call
-            content_type: contentType,
-          },
-        }
-      );
+    // upload the file to V DB and get the metadata
+    const metadata = await invokeUploadFunction(
+      filePath,
+      publicURL,
+      contentType
+    );
 
-      if (error) {
-        throw error;
-      }
-
-      console.log(data);
-    } catch (err) {
-      console.error("An error occurred:", err);
-    }
+    // update the metadata in the database
+    await updateMetadataInDatabase(data.path, metadata);
+  } catch (err) {
+    console.error("An error occurred:", err.message);
   }
 }
 

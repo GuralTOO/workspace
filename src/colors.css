@@ -1,0 +1,17 @@
+@import '@radix-ui/colors/slate.css';
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/indigo.css';
+
+:root {
+    --background-color: var(--slate-1);
+    --background-color2: var(--slate-2);
+
+    --primary-color: var(--indigo-9);
+    --primary-color-hover: var(--indigo-10);
+    
+    --text-color-dark: var(--slate-12);
+    --test-color-light: var(--slate-1);
+
+    --outline-color: var(--slate-6);
+}
+

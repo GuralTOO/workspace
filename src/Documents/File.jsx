@@ -6,7 +6,7 @@ import { Box, Card, Separator, Text, Flex } from '@radix-ui/themes'
 import FileDetails from './FileDetails';
 
 
-const File = ({ fileName, onFileClick }) => {
+const File = ({ fileName, onFileClick, filePath }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [expanded, setExpanded] = useState(false);
@@ -66,7 +66,7 @@ const File = ({ fileName, onFileClick }) => {
         </div>
       </div>
       <Separator size="4" mb="2" />
-      <FileDetails fileName={fileName} setExpanded={setExpanded}/>
+      <FileDetails fileName={fileName} setExpanded={setExpanded} filePath={filePath}/>
     </Box>
   );
 };

@@ -6,8 +6,9 @@ import { FileTextIcon, CaretSortIcon, Cross2Icon } from '@radix-ui/react-icons';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import './File.css' 
 import './FileDetails.css'
+import { getFileDetails } from '../utils/getFileDetails';
 
-const FileDetails = ({fileName, setExpanded}) => {
+const FileDetails = ({fileName, setExpanded, filePath}) => {
     const [open, setOpen] = useState(false);
 
     const MAX_FILENAME_LENGTH = 14; // Adjust the calculations as needed
@@ -18,24 +19,42 @@ const FileDetails = ({fileName, setExpanded}) => {
     
     // array of tuples of the form [name, contents[...]] called fileData
     // with data: [["file1", ["line1", "line2", "line3"]], ["file2", ["line1", "line2", "line3"]]]
-    const fileData = [["Authors", ["line1", "line2", "line3"]], ["Topics", ["line1", "line2", "line3"]]];
-    
+    const [fileData, setFileData] = useState([["Authoritities", ["line1", "line2", "line3"]], ["Topics", ["line1", "line2", "line3"]]]);
 
+    
+    const getFileData = async (filePath) => {
+        const data = await getFileDetails(filePath);
+        // convert data from json to array of tuples
+        console.log("data: ", data);
+        const newData = [];
+        for (const [key, value] of Object.entries(data)) {
+            newData.push([key, [value]]);
+        }
+        console.log("newData: ", newData);
+        setFileData(newData);
+    };
+
+    // id open is true, get the file data
+    useEffect(() => {
+        if (open) {
+            console.log("getting file data")
+            getFileData(filePath);
+        }
+    }, [open]);
+    
 
     return(
         <Collapsible.Root className="CollapsibleRoot" open={open} onOpenChange={setOpen}>
         <div style={{display: 'flex', flexDirection: "column"}}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textOverflow: "clip", flexDirection: "row" }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textOverflow: "clip", flexDirection: "row" }}>
             <Text color="gray" highContrast style={{flexGrow: 1}}>
               {truncatedFileName + "\n"}              
             </Text>
-            <Collapsible.Trigger asChild onChange={
-                open ? setExpanded(true) : setExpanded(false)
-            }>
-                <button className="IconButton" >
-                    {open ? < Cross2Icon color='black'/> 
-                    : <CaretSortIcon color='black'/>}
-                </button>
+            <Collapsible.Trigger asChild onChange={open ? setExpanded(true) : setExpanded(false)}>
+                <Button className="IconButton" variant="soft" >
+                    {open ? < Cross2Icon color = "#3e63dd" /> 
+                    : <CaretSortIcon color = "#3e63dd" style={{width: '20px', height: '20px'}}/>}
+                </Button>
             </Collapsible.Trigger>
             </div>
             {
@@ -70,24 +89,8 @@ const FileDetails = ({fileName, setExpanded}) => {
                     </ScrollArea.Scrollbar>
                     <ScrollArea.Corner />
                 </ScrollArea.Root>
-
-
                 : null
             }
-
-
-          {/* <Collapsible.Content className="CollapsibleContent">
-          <div style={{
-            display: "flex",
-            justifyContent: "center",
-            height: "100px",
-            backgroundColor: 'transparent'
-          }}>
-            <Text color="gray" highContrast style={{flexGrow: 1}}>
-              {truncatedFileName}
-            </Text>
-          </div>
-          </Collapsible.Content>         */}
           </div>
         </Collapsible.Root>
     )
