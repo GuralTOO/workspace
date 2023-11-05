@@ -27,7 +27,7 @@
   border-width: 1px;
   border-color: var(--outline-color);
   border-style: solid;
-  background-color: var(--slate-3);
+  background-color: var(--background-color1);
 }
 
   .modal {
@@ -72,7 +72,31 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    border-radius: 5px;
   }
+
+  /* in-card pdf rendering */
+  .pdf-document {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+  }
+
+  .pdf-page-container {
+    width: 100%; /* This should be the width of the FileTop component */
+    height: 150px; /* Set the height to half of what you want to display */
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  
+  .react-pdf__Page__canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+
 
   button {
     all: unset;

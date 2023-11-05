@@ -26,7 +26,7 @@ const Sidebar = ({userID}) => {
   return (
     <Theme
       id="theme"
-      accentColor="iris"
+      accentColor="indigo"
       appearance='light'
       grayColor="slate"
       panelBackground="translucent"

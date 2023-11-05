@@ -6,12 +6,17 @@
     --background-color: var(--slate-1);
     --background-color2: var(--slate-2);
 
+    --ui-background-color: var(--indigo-3);
+    --ui-background-color-hover: var(--indigo-4);
+
     --primary-color: var(--indigo-9);
     --primary-color-hover: var(--indigo-10);
     
     --text-color-dark: var(--slate-12);
-    --test-color-light: var(--slate-1);
+    --text-color-dark2: var(--slate-11);
+    --text-color-light: var(--slate-1);
 
-    --outline-color: var(--slate-6);
+    --outline-color: var(--slate-7);
+    --outline-color2: var(--slate-6);
 }
 

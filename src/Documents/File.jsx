@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { FileTextIcon, CaretSortIcon, Cross2Icon } from '@radix-ui/react-icons';
+import {supabase} from '../supabaseClient';
 import './File.css' 
 import './accordion.css'
 import { Box, Card, Separator, Text, Flex } from '@radix-ui/themes'
 import FileDetails from './FileDetails';
-
+import FileTop from './FileTop';
 
 const File = ({ fileName, onFileClick, filePath }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [expanded, setExpanded] = useState(false);
-  const [heightMini, setHeightMini] = useState(150);
-
-  
+  const [heightMini, setHeightMini] = useState(150);  
 
   useEffect(() => {
     setHeightMini(expanded ? 0 : 150);
@@ -61,9 +59,7 @@ const File = ({ fileName, onFileClick, filePath }) => {
         style={{height: heightMini}}
         onClick={handleClick} 
       >
-        <div className='file-icon'>
-          <FileTextIcon style={{size: "large"}}/>
-        </div>
+        <FileTop filePath={filePath} render={!expanded}/>
       </div>
       <Separator size="4" mb="2" />
       <FileDetails fileName={fileName} setExpanded={setExpanded} filePath={filePath}/>

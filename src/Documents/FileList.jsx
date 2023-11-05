@@ -100,7 +100,7 @@ const FileList = ({userID}) => {
             className = "file-list-container"
           >
             {files.map((file, index) => (
-            index === 0 ? <CreateFolder parentPath={fullPath} onFolderCreate={fetchFiles  } />
+            index === 0 ? <CreateFolder parentPath={fullPath} onCreate={fetchFiles  } />
             : file.name.includes(".pdf") || file.name.includes(".PDF") ? 
                 <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
                 : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>

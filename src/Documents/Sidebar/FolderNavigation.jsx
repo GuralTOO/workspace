@@ -3,6 +3,8 @@ import * as ScrollArea from '@radix-ui/react-scroll-area';
 import './FolderNavigation.css';
 import { getFiles } from '../../utils/utils';
 import { NavLink } from 'react-router-dom';
+import { FaRegFolder } from 'react-icons/fa';
+import { IconContext } from "react-icons";
 
 const SideNav = ({ userID}) => {
   
@@ -41,7 +43,9 @@ const SideNav = ({ userID}) => {
 const FolderNavigation = ({userID}) => (
   
   <ScrollArea.Root className='ScrollAreaRoot'>
-   <div className="Text">Main Folders</div>
+    <div className="Text">
+      Folders
+    </div>
    <ScrollArea.Viewport className="ScrollAreaViewport">
      <SideNav userID = {userID}/>
    </ScrollArea.Viewport>
@@ -57,6 +61,10 @@ const FolderNavigation = ({userID}) => (
 
 const FolderItem = ({ onClick, children }) => (
   <div className="folder-item" onClick={onClick}>
+    <IconContext.Provider value={{ color: 'blue', 
+      className: 'folder-mini-icon'}}>
+      <FaRegFolder fill='true' fillOpacity={"70%"} />
+    </IconContext.Provider>
     {children}
   </div>
 );
