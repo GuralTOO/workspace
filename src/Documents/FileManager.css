@@ -4,11 +4,8 @@
 
 
 .file-manager-container {
-  /* make the height full screen */
   height: 100vh;
   max-height: 100vh;
-  /* overflow: auto;     */
-  background-color: "white";
 }
 
   
@@ -28,4 +25,69 @@
 }
 .file-list-container::-webkit-scrollbar {
   display: none;
+}
+
+
+/* Add this to your CSS file */
+
+/* General layout for the FileManager */
+.file-manager-layout {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: row;
+}
+
+/* Styles for the left-side container */
+.left-side {
+  display: flex;
+  align-self: flex-start;
+}
+
+/* Styles for the draggable vertical line */
+.draggable-line {
+  width: 8px;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: col-resize;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  background-color: transparent; /* Default background */
+}
+
+/* Specific styles when dragging or highlighted */
+.draggable-line.dragging,
+.draggable-line.highlight {
+  background-color: orange;
+}
+
+/* Inner line styling */
+.draggable-line-inner {
+  width: 1px;
+  height: 100%;
+  background-color: grey;
+}
+
+/* Styles for the right-side container */
+.right-side {
+  color: beige;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* Chatbox message area */
+.chatbox-message-area {
+  padding: 20px;
+  margin-top: 15px;
+  color: black;
+}
+
+/* Chatbox input area */
+.chatbox-input-area {
+  padding: 20px;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
 }
