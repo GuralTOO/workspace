@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { getFiles } from '../../utils/utils';
 import FolderNavigation from './FolderNavigation';
-import './Sidebar.css'
+import './Sidebar.css';
 import {Flex, Theme, Heading } from '@radix-ui/themes';
 import {GiEgyptianProfile} from 'react-icons/gi';
 
