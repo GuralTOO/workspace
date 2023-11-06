@@ -7,6 +7,7 @@ import { getFiles } from '../utils/utils';
 import './FileManager.css';
 import { NavLink, useLoaderData, useLocation, useParams } from 'react-router-dom';
 import Header from './Header';
+import * as ScrollArea from '@radix-ui/react-scroll-area';
 
 
 const FileList = ({userID}) => {
@@ -90,14 +91,24 @@ const FileList = ({userID}) => {
 
         {/* left side */}
         <div div className="left-side" style={{width: `${split}%`}}>
-          <div className= "file-list-container">
-            {files.map((file, index) => (
-            index === 0 ? <CreateFolder parentPath={fullPath} onCreate={fetchFiles  } />
-            : file.name.includes(".pdf") || file.name.includes(".PDF") ? 
-                <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
-                : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>
-            ))}
-          </div>
+
+          <ScrollArea.Root className="Manager-ScrollAreaRoot">
+            <ScrollArea.Viewport className="Manager-ScrollAreaViewport">
+              <div className= "file-list-container">
+                {files.map((file, index) => (
+                index === 0 ? <CreateFolder parentPath={fullPath} onCreate={fetchFiles  } />
+                : file.name.includes(".pdf") || file.name.includes(".PDF") ? 
+                    <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
+                    : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>
+                ))}
+              </div>
+            </ScrollArea.Viewport>
+            <ScrollArea.Scrollbar className="Manager-ScrollAreaScrollbar" orientation="vertical">
+              <ScrollArea.Thumb className="Manager-ScrollAreaThumb" />
+            </ScrollArea.Scrollbar>
+            <ScrollArea.Corner className="Manager-ScrollAreaCorner" />
+          </ScrollArea.Root>
+
         </div> 
 
          {/* vertical straight line  */}

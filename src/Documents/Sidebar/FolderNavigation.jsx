@@ -52,9 +52,9 @@ const FolderNavigation = ({userID}) => (
    <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="vertical">
       <ScrollArea.Thumb className="ScrollAreaThumb" />
     </ScrollArea.Scrollbar>
-    <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="horizontal">
+    {/* <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="horizontal">
       <ScrollArea.Thumb className="ScrollAreaThumb" />
-    </ScrollArea.Scrollbar>
+    </ScrollArea.Scrollbar> */}
     <ScrollArea.Corner className="ScrollAreaCorner" />
   </ScrollArea.Root>
 );
