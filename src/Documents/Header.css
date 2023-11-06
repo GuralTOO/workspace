@@ -1,3 +1,8 @@
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/slate.css';
+
+
 #header {
   position: fixed;
   top: 0;
@@ -5,6 +10,7 @@
   right: 0;
   height: 30px;
   border-bottom: #fff 1px solid;
+  color: var(--gray-12);
   /* background-color: bisque; */
   /* add your other styles */
 }
@@ -17,5 +23,11 @@
 }
 
 .header .MuiTypography-root {
-  color: white;
+  color: var(--gray-12);
+}
+
+.path-element {
+  color: var(--slate-12);
+  font-size: 18px;
+  /* color: "black" */
 }

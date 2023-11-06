@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
-import { Button, Menu, MenuItem } from '@mui/material';
-import DescriptionIcon from '@mui/icons-material/Description';
-import Foldericon from '@mui/icons-material/Folder';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import React, { useEffect, useState } from 'react';
+import {supabase} from '../supabaseClient';
 import './File.css' 
+import './accordion.css'
+import { Box, Card, Separator, Text, Flex } from '@radix-ui/themes'
+import FileDetails from './FileDetails';
+import FileTop from './FileTop';
 
-const File = ({ fileName, onFileClick }) => {
+const File = ({ fileName, onFileClick, filePath }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [expanded, setExpanded] = useState(false);
+  const [heightMini, setHeightMini] = useState(150);  
+
+  useEffect(() => {
+    setHeightMini(expanded ? 0 : 150);
+    console.log('expanded: ', expanded)
+  }, [expanded]); 
 
   const handleClick = (event) => {
     // Stop event propagation if the click is on a menu item
@@ -42,43 +50,20 @@ const File = ({ fileName, onFileClick }) => {
     handleMenuClose();
   };
 
-
-  const MAX_FILENAME_LENGTH = 10; // Adjust the calculations as needed
-
-  const truncatedFileName = fileName.length > MAX_FILENAME_LENGTH
-    ? fileName.substring(0, MAX_FILENAME_LENGTH) + "..."
-    : fileName;
-
-  const fileExtension = fileName.split('.').pop();
-
-
   return (
-    <div 
-      className = "file-mini"
-      onClick={handleClick} 
+    <Box size="1" variant="surface" 
+      className="like-a-card"       
     >
-      <div className='file-info'>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        >
-          <MenuItem onClick={handleDelete}>Delete</MenuItem>
-          <MenuItem onClick={handleRename}>Rename</MenuItem>
-        </Menu>
-        <div className="file-icon">
-          {fileExtension === 'pdf' ? (
-            <DescriptionIcon />          ) : (
-            <Foldericon />
-          )}
-        </div>
-        <div className="file-name">{truncatedFileName}</div>
+      <div 
+        className = "file-mini"
+        style={{height: heightMini}}
+        onClick={handleClick} 
+      >
+        <FileTop filePath={filePath} render={!expanded}/>
       </div>
-    </div>
+      <Separator size="4" mb="2" />
+      <FileDetails fileName={fileName} setExpanded={setExpanded} filePath={filePath}/>
+    </Box>
   );
 };
 

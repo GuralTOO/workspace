@@ -7,6 +7,7 @@ import { getFiles } from '../utils/utils';
 import './FileManager.css';
 import { NavLink, useLoaderData, useLocation, useParams } from 'react-router-dom';
 import Header from './Header';
+import * as ScrollArea from '@radix-ui/react-scroll-area';
 
 
 const FileList = ({userID}) => {
@@ -42,7 +43,6 @@ const FileList = ({userID}) => {
   const [highlightTimeoutId, setHighlightTimeoutId] = useState(null);
   const [startX, setStartX] = useState(null);
   const [dragging, setDragging] = useState(false);
-
 
 
   const handleMouseMove = useCallback((event) => {
@@ -84,48 +84,49 @@ const FileList = ({userID}) => {
   const [chatBoxText, setChatBoxText] = useState("");
 
   return (
-    // style the div to grow to fill the remaining height of the page
     <div className='file-manager-container'>
       <Header path={path}/>
-      {/* set height of the div to 100vh - 150 px */}
-      <div style={{
-        height: 'calc(100vh - 50px)',
-        display: 'flex', 
-        flexDirection: 'row',          
-      }}>
+
+      <div className="file-manager-layout">
+
         {/* left side */}
-        <div style={{width: `${split}%`}}>
-          <div className = "file-list-container">
-              {files.map((file, index) => (
-              index === 0 ? <CreateFolder parentPath={fullPath} onFolderCreate={fetchFiles  } />
-              : file.name.includes(".pdf") || file.name.includes(".PDF") ? 
-                  <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
-                  : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>
-              ))}
-          </div>
+        <div div className="left-side" style={{width: `${split}%`}}>
+
+          <ScrollArea.Root className="Manager-ScrollAreaRoot">
+            <ScrollArea.Viewport className="Manager-ScrollAreaViewport">
+              <div className= "file-list-container">
+                {files.map((file, index) => (
+                index === 0 ? <CreateFolder parentPath={fullPath} onCreate={fetchFiles  } />
+                : file.name.includes(".pdf") || file.name.includes(".PDF") ? 
+                    <FileItem key={`${file.id}-${index}`} file={file} filePath={fullPath+'/'+file.name} /> 
+                    : <Folder key={`${file.id}-${index}`} folderName={file.name} folderPath = {fullPath+'/'+file.name}/>
+                ))}
+              </div>
+            </ScrollArea.Viewport>
+            <ScrollArea.Scrollbar className="Manager-ScrollAreaScrollbar" orientation="vertical">
+              <ScrollArea.Thumb className="Manager-ScrollAreaThumb" />
+            </ScrollArea.Scrollbar>
+            <ScrollArea.Corner className="Manager-ScrollAreaCorner" />
+          </ScrollArea.Root>
+
         </div> 
-        {/* vertical straight line */}
+
+         {/* vertical straight line  */}
         <div 
-          style={{
-            width: "8px", 
-            height: "100%", 
-            display: 'flex', 
-            justifyContent: 'center', 
-            cursor: 'col-resize', 
-            backgroundColor: dragging || highlightTimeoutId === "highlight" ? 'orange' : 'transparent' // Add the orange highlight
-          }}
+          className={`draggable-line ${dragging ? 'dragging' : ''} ${highlightTimeoutId === "highlight" ? 'highlight' : ''}`}
           onMouseDown={handleMouseDown}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div style={{width: "1px", height: "100%", backgroundColor: "grey"}}></div>
+          <div className="draggable-line-inner"></div>
         </div>
+
         {/* right side */}
-        <div style={{width: `${100 - split}%`, color: 'beige', display: 'flex', justifyContent: 'center', position: 'relative'}}>
-          <div style = {{padding: 20, marginTop: 15, color: 'beige'}}>
+        <div className="right-side" style={{width: `${100 - split}%`}}>
+          <div className="chatbox-message-area">
             {chatBoxText}
           </div>
-          <div style={{padding: 20, bottom: 0, width: "100%", position: 'absolute'}}>
+          <div className="chatbox-input-area">
             <Chatbox folderPath = {fullPath} outputMessage = {chatBoxText} setOutputMessage = {setChatBoxText}/>
           </div>
         </div>          

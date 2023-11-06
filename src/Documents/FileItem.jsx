@@ -84,7 +84,7 @@ const FileItem = ({filePath, file }) => {
 
   return (
     <div > 
-      <File key={file.id} fileName={file.name} onFileClick={handleFileSelect}/>
+      <File key={file.id} fileName={file.name} onFileClick={handleFileSelect} filePath={filePath}/>
       {/* new pdf rendering onto a pop-up */}
       {isOpen && (
         <div className="modal" onClick={closeModal}>

@@ -1,50 +1,33 @@
 import { supabase } from "../supabaseClient";
+import {
+  uploadToStorage,
+  addFileDataToDatabase,
+  updateMetadataInDatabase,
+  getSignedURL,
+  invokeUploadFunction,
+} from "./upload_file_helpers";
 
-// function to add a file to the user's storage
-export async function addFile(filePath, file) {
-  const { data, error } = await supabase.storage
-    .from("documents")
-    .upload(filePath, file);
+export async function addFile(filePath, file, contentType = "research") {
+  try {
+    const { data, error } = await uploadToStorage(filePath, file);
+    if (error) throw new Error("Error uploading file.");
 
-  if (error) {
-    alert("Error uploading file.");
-    console.error("Error uploading file: ", error);
-  } else {
-    // console.log("file successfully uploaded to " + filePath);
-    try {
-      let publicURL = "";
-      await supabase.storage
-        .from("documents")
-        .createSignedUrl(filePath, 60)
-        .then((response) => {
-          const signedUrl = response.data.signedUrl;
-          // console.log("signedUrl:", signedUrl); // Log the signed URL
-          publicURL = signedUrl;
-        })
-        .catch((error) => {
-          console.log("Error creating signed URL:", error);
-        });
+    const userId = filePath.split("/")[0];
+    await addFileDataToDatabase(file, contentType, userId, data.path);
 
-      console.log("public url: " + publicURL);
-      const { data, error } = await supabase.functions.invoke(
-        "weaviate-client",
-        {
-          body: {
-            type: "pdf",
-            path: filePath,
-            url: publicURL,
-          },
-        }
-      );
+    const publicURL = await getSignedURL(filePath);
 
-      if (error) {
-        throw error;
-      }
+    // upload the file to V DB and get the metadata
+    const metadata = await invokeUploadFunction(
+      filePath,
+      publicURL,
+      contentType
+    );
 
-      console.log(data);
-    } catch (err) {
-      console.error("An error occurred:", err);
-    }
+    // update the metadata in the database
+    await updateMetadataInDatabase(data.path, metadata);
+  } catch (err) {
+    console.error("An error occurred:", err.message);
   }
 }
 

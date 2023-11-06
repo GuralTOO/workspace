@@ -1,8 +1,12 @@
+@import '@radix-ui/colors/slate.css';
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/violet.css';
+
 .folder-mini {
     /* Adjust these values as needed */
     width: 150px;
     height: 150px;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     margin: 10px;
     display: flex;
     flex-direction: column;
@@ -36,10 +40,9 @@
 } 
 .folder-icon {
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
   font-size: 75px; /* Adjust the font size as needed */
-  color: white;
   height: 50%;
   flex-grow: 1;
   padding-bottom: 5%;

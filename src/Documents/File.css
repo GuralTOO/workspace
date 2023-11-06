@@ -1,27 +1,35 @@
+@import '@radix-ui/colors/slate.css';
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/violet.css';
+@import '../colors.css';
+
+
 .file-mini {
     /* Adjust these values as needed */
-    width: 150px;
+    width: "100%";
     height: 150px;
-    border: 1px solid grey;
-    margin: 10px;
+    background: var(--gray-3);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
     position: relative;
-  }
-  
-  .file-info {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* background-color: rgba(0, 0, 0, 0.7); */
-    padding: 5px;
-    display: flex;
-    align-items: center;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
   }
 
+
+.like-a-card {
+  height: 200px; 
+  margin: 8px;
+  width: 170px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: var(--outline-color);
+  border-style: solid;
+  background-color: var(--background-color1);
+}
 
   .modal {
     position: fixed;
@@ -45,10 +53,13 @@
   }
 
   .file-icon {
-    margin-right: 5px;
     display: flex;
     align-items: center;
-    color: white;
+    justify-content: center;
+    font-size: 75px; /* Adjust the font size as needed */
+    height: 50%;
+    flex-grow: 1;
+    padding-bottom: 5%;
   }
   
   .file-icon span {
@@ -58,8 +69,92 @@
   .file-name {
     flex: 1;
     font-size: small;
-    color: white;
+    color: var(--slate-11);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    border-radius: 5px;
   }
+
+  /* in-card pdf rendering */
+  .pdf-document {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+  }
+
+  .pdf-page-container {
+    width: 100%; /* This should be the width of the FileTop component */
+    height: 150px; /* Set the height to half of what you want to display */
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  
+  .react-pdf__Page__canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+
+
+  button {
+    all: unset;
+  }
+
+  .CollapsibleRoot {
+    width: 100%;
+  }
+  .IconButton {
+    font-family: inherit;
+    border-width: 0;
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    margin-right: 10px;
+    /* box-shadow: 0 2px 10px var(--black-a7); */
+  }
+  .IconButton[data-state='closed'] {
+    background-color: transparent;
+  }
+  .IconButton[data-state='open'] {
+    background-color: var(--primary-color);
+  }
+  .IconButton:hover {
+    background-color: var(--primary-color);
+  }
+
+  .CollapsibleContent {
+    overflow: hidden;
+  }
+  .CollapsibleContent[data-state='open'] {
+    animation: slideDown 300ms ease-out;
+  }
+  .CollapsibleContent[data-state='closed'] {
+    animation: slideUp 300ms ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-collapsible-content-height);
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      height: var(--radix-collapsible-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+
+
+
