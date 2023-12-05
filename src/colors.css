@@ -16,7 +16,13 @@
     --text-color-dark2: var(--slate-11);
     --text-color-light: var(--slate-1);
 
+    --text-primary-color: var(--indigo-11);
+    --text-primary-color-hover: var(--indigo-12);
+
     --outline-color: var(--slate-7);
     --outline-color2: var(--slate-6);
+
+    --outline-primary-color: var(--indigo-7);
+    --outline-primary-color2: var(--indigo-6);
 }
 

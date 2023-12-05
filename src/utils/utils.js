@@ -17,7 +17,7 @@ export async function addFile(filePath, file, contentType = "research") {
 
     const publicURL = await getSignedURL(filePath);
 
-    // upload the file to V DB and get the metadata
+    // upload the file to V DB
     const metadata = await invokeUploadFunction(
       filePath,
       publicURL,
@@ -25,7 +25,7 @@ export async function addFile(filePath, file, contentType = "research") {
     );
 
     // update the metadata in the database
-    await updateMetadataInDatabase(data.path, metadata);
+    // await updateMetadataInDatabase(data.path, metadata);
   } catch (err) {
     console.error("An error occurred:", err.message);
   }

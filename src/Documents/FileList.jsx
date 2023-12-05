@@ -4,10 +4,15 @@ import Folder from './Folder';
 import Chatbox from './Chatbox';
 import CreateFolder from './CreateFolder';
 import { getFiles } from '../utils/utils';
+import { getFileDetails } from '../utils/getFileDetails';
 import './FileManager.css';
 import { NavLink, useLoaderData, useLocation, useParams } from 'react-router-dom';
 import Header from './Header';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
+
+
+// adding Tabs on the right side
+import * as Tabs from '@radix-ui/react-tabs';
 
 
 const FileList = ({userID}) => {
@@ -16,10 +21,34 @@ const FileList = ({userID}) => {
   const [path, setPath] = useState(params['*'] || '');
   const [fullPath, setFullPath] = useState(userID + '/' + path);
   const [files, setFiles] = useState([]);
+  const [filesMetadata, setFilesMetadata] = useState([]); 
 
   const fetchFiles = useCallback(() => {
     getFiles(fullPath).then((files) => {
       setFiles([{}, ...files]);
+      // iterate through files and get metadata for each file and catch errors
+      // add file name to metadata
+      const promises = files.map((file) => {
+        // if file does not end with pdf, skip
+        if (!file.name.includes(".pdf") && !file.name.includes(".PDF")) {
+          return Promise.resolve({ name: file.name });
+        }
+        return getFileDetails(fullPath + '/' + file.name)
+          .then((metadata) => {
+            metadata.name = file.name;
+            return metadata;
+          })
+          .catch((error) => {
+            console.error('Error fetching file details: ', error);
+            return { name: file.name };
+          });
+      });
+      Promise.allSettled(promises).then((results) => {
+        const filesMetadata = results.map((result) => result.value);
+        setFilesMetadata(filesMetadata);
+        console.log("filesMetadata: ", filesMetadata)
+      });
+      
     });
   }, [fullPath]);
 
@@ -34,6 +63,9 @@ const FileList = ({userID}) => {
   useEffect(() => {
     fetchFiles();
   }, [fetchFiles]);
+
+  
+
 
 
   /*
@@ -86,6 +118,7 @@ const FileList = ({userID}) => {
   return (
     <div className='file-manager-container'>
       <Header path={path}/>
+      <div className="file-manager-header"></div>
 
       <div className="file-manager-layout">
 
@@ -123,12 +156,59 @@ const FileList = ({userID}) => {
 
         {/* right side */}
         <div className="right-side" style={{width: `${100 - split}%`}}>
-          <div className="chatbox-message-area">
-            {chatBoxText}
-          </div>
-          <div className="chatbox-input-area">
-            <Chatbox folderPath = {fullPath} outputMessage = {chatBoxText} setOutputMessage = {setChatBoxText}/>
-          </div>
+        <Tabs.Root className="TabsRoot" defaultValue="tab1" >
+          <Tabs.List className="TabsList" style={{
+            
+          }}>
+            <Tabs.Trigger className="TabsTrigger" value="tab1">
+              Info
+            </Tabs.Trigger>
+            <Tabs.Trigger className="TabsTrigger" value="tab2">
+              Chat
+            </Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content className="TabsContent" value="tab1">
+            {/* render a table with columns "Authors, Methods, Results" and rows for each file in filesMetadata  */}
+            <ScrollArea.Root>
+              <ScrollArea.Viewport >
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Authors</th>
+                      <th>Methods</th>
+                      <th>Results</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filesMetadata.map((file, index) => (
+                      (file.name.includes(".pdf") || file.name.includes(".PDF")) && 
+                      <tr key={index}>
+                        <td>{file.name}</td>
+                        <td>{file.authors}</td>
+                        <td>{file.methods}</td>
+                        <td>{file.key_results}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </ScrollArea.Viewport>
+              <ScrollArea.Scrollbar orientation="vertical">
+                <ScrollArea.Thumb />
+              </ScrollArea.Scrollbar>
+              <ScrollArea.Corner />
+            </ScrollArea.Root>
+
+          </Tabs.Content>
+          <Tabs.Content className="TabsContent" value="tab2">
+            <div className="chatbox-message-area">
+              {chatBoxText}
+            </div>
+            <div className="chatbox-input-area">
+              <Chatbox folderPath = {fullPath} outputMessage = {chatBoxText} setOutputMessage = {setChatBoxText}/>
+            </div>
+          </Tabs.Content>
+        </Tabs.Root>
         </div>          
       </div>
     </div>
