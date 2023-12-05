@@ -171,7 +171,7 @@ const FileList = ({userID}) => {
             {/* render a table with columns "Authors, Methods, Results" and rows for each file in filesMetadata  */}
             <ScrollArea.Root className="Manager-ScrollAreaRoot">
               <ScrollArea.Viewport style={{
-                height: '50%', 
+                height: '100%', 
                 border: '1px solid #e5e5e5', borderRadius: '5px'}} className="Manager-ScrollAreaViewport"
               >
                   <div style={{height: '200%', width: "100%"}}>
