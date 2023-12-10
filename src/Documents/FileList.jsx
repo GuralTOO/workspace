@@ -169,14 +169,8 @@ const FileList = ({userID}) => {
           </Tabs.List>
           <Tabs.Content className="TabsContent" value="tab1">
             {/* render a table with columns "Authors, Methods, Results" and rows for each file in filesMetadata  */}
-            <ScrollArea.Root className="Manager-ScrollAreaRoot">
-              <ScrollArea.Viewport style={{
-                height: '100%', 
-                border: '1px solid #e5e5e5', borderRadius: '5px'}} className="Manager-ScrollAreaViewport"
-              >
-                  <div style={{height: '200%', width: "100%"}}>
-
-                                    <table className="data-table">
+            <ScrollArea.Root className="InfoScrollAreaRoot">
+              <table className="data-table">
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -185,6 +179,9 @@ const FileList = ({userID}) => {
                       <th>Results</th>
                     </tr>
                   </thead>
+                </table>
+              <ScrollArea.Viewport className="InfoScrollAreaViewport">
+                <table className="data-table">
                   <tbody>
                     {filesMetadata.map((file, index) => (
                       (file.name.includes(".pdf") || file.name.includes(".PDF")) && 
@@ -197,34 +194,11 @@ const FileList = ({userID}) => {
                     ))}
                   </tbody>
                 </table>
-                    <h1>Hello</h1>
-                  </div>
-                {/* <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Authors</th>
-                      <th>Methods</th>
-                      <th>Results</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filesMetadata.map((file, index) => (
-                      (file.name.includes(".pdf") || file.name.includes(".PDF")) && 
-                      <tr key={index}>
-                        <td>{file.name}</td>
-                        <td>{file.authors}</td>
-                        <td>{file.methods}</td>
-                        <td>{file.key_results}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table> */}
               </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar orientation="vertical" className="Manager-ScrollAreaScrollbar">
-                <ScrollArea.Thumb className="Manager-ScrollAreaThumb"/>
+              <ScrollArea.Scrollbar className="InfoScrollAreaScrollbar" orientation="vertical">
+                <ScrollArea.Thumb className="InfoScrollAreaThumb"/>
               </ScrollArea.Scrollbar>
-              <ScrollArea.Corner className="Manager-ScrollAreaCorner"/>
+              <ScrollArea.Corner className="InfoScrollAreaCorner"/>
             </ScrollArea.Root>
 
           </Tabs.Content>

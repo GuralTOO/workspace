@@ -38,7 +38,7 @@ const Header = ({path}) => {
   return (
     // <AppBar position="static" className="app-bar">
       <div style={{
-          height: '60px', paddingTop: "12px", background: 'transparent',
+          height: '59px', paddingTop: "12px", background: 'transparent',
           display: 'flex', justifyContent: 'left', alignItems: 'center',
           flexDirection: 'row', position: 'relative', color: 'black'
         }} 

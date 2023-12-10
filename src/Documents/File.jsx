@@ -5,68 +5,83 @@ import './accordion.css'
 import { Box, Card, Separator, Text, Flex } from '@radix-ui/themes'
 import FileDetails from './FileDetails';
 import FileTop from './FileTop';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+
 
 const File = ({ fileName, onFileClick, filePath }) => {
-
-  const [anchorEl, setAnchorEl] = useState(null);
   const [expanded, setExpanded] = useState(false);
-  const [heightMini, setHeightMini] = useState(150);  
+  const [heightMini, setHeightMini] = useState(150);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     setHeightMini(expanded ? 0 : 150);
-    console.log('expanded: ', expanded)
-  }, [expanded]); 
+  }, [expanded]);
 
-  const handleClick = (event) => {
-    // Stop event propagation if the click is on a menu item
+  const handleLeftClick = (event) => {
     if (event.target.closest('.MuiMenuItem-root')) {
       event.stopPropagation();
       return;
     }
-    if(event.button === 0){
-      console.log('file selected: ', fileName);
+    if (event.button === 0) {
       onFileClick(fileName);
     }
   };
-  /* adding a menu button to each file */
-  
+
   const handleMenuClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    event.preventDefault();
+    setMenuPosition({ x: event.pageX, y: event.pageY });
+    setMenuOpen(true);
   };
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
+    setMenuOpen(false);
   };
 
   const handleDelete = () => {
     console.log('Delete action');
-    // Handle delete action
     handleMenuClose();
   };
 
   const handleRename = () => {
     console.log('Rename action');
-    // Handle rename action
     handleMenuClose();
   };
 
-  return (
-    <Box size="1" variant="surface" 
-      className="like-a-card"       
-    >
-      <div 
-        className = "file-mini"
-        style={{height: heightMini}}
-        onClick={handleClick} 
+    return (
+      <Box size="1" variant="surface" 
+        className="like-a-card"       
+        onContextMenu={handleMenuClick}
       >
-        <FileTop filePath={filePath} render={!expanded}/>
-      </div>
-      <Separator size="4" mb="2" />
-      <FileDetails fileName={fileName} setExpanded={setExpanded} filePath={filePath}/>
-    </Box>
-  );
-};
+        <div 
+          className = "file-mini"
+          style={{height: heightMini}}
+          onClick={handleLeftClick} 
+        >
+          <FileTop filePath={filePath} render={!expanded}/>
+        </div>
+        <Separator size="4" mb="2" />
+        <FileDetails fileName={fileName} setExpanded={setExpanded} filePath={filePath}/>
+        
+        <DropdownMenu.Root open={menuOpen} onOpenChange={setMenuOpen}>
+          <DropdownMenu.Portal>
+            <DropdownMenu.Content 
+              className="DropdownMenuContent"
+              style={{ position: 'absolute', top: `${menuPosition.y}px`, left: `${menuPosition.x}px` }}
+            >
+              <DropdownMenu.Item className="DropdownMenuItem" onSelect={handleRename}>
+                Rename
+              </DropdownMenu.Item>
+              <DropdownMenu.Item className="DropdownMenuItem" onSelect={handleDelete}>
+                Delete
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Portal>
+        </DropdownMenu.Root>
+      </Box>
+    );
+  };
 
-export default File;
+  export default File;
 
 
