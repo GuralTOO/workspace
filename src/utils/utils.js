@@ -65,11 +65,11 @@ async function deleteFileFromVectorDB(filePath) {
 }
 
 export async function deleteFile(filePath) {
-  // try {
-  //   await deleteFileFromSupabase(filePath);
-  // } catch (err) {
-  //   console.error("An error occurred:", err.message);
-  // }
+  try {
+    await deleteFileFromSupabase(filePath);
+  } catch (err) {
+    console.error("An error occurred:", err.message);
+  }
   try {
     console.log("sending delete request to vector db for file: " + filePath);
     await deleteFileFromVectorDB(filePath);
