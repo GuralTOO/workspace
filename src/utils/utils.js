@@ -2,7 +2,6 @@ import { supabase } from "../supabaseClient";
 import {
   uploadToStorage,
   addFileDataToDatabase,
-  updateMetadataInDatabase,
   getSignedURL,
   invokeUploadFunction,
 } from "./upload_file_helpers";
@@ -23,9 +22,57 @@ export async function addFile(filePath, file, contentType = "research") {
       publicURL,
       contentType
     );
+  } catch (err) {
+    console.error("An error occurred:", err.message);
+  }
+}
 
-    // update the metadata in the database
-    // await updateMetadataInDatabase(data.path, metadata);
+async function deleteFileFromSupabase(filePath) {
+  const { data, error } = await supabase
+    .from("doc_data")
+    .delete()
+    .eq("path", filePath);
+
+  if (error) {
+    console.error("Detailed error:", error);
+    throw new Error("Error deleting row.");
+  }
+  const { data: function_data, error: function_error } = await supabase.storage
+    .from("documents")
+    .remove([filePath]);
+
+  if (function_error) {
+    console.error("Detailed error:", function_error);
+    throw new Error("Error deleting file.");
+  }
+}
+
+async function deleteFileFromVectorDB(filePath) {
+  // call the delete api endpoint on private server url = 'https://filestore.visionproje.com/delete'
+  const body = { path: filePath };
+  const response = await fetch("https://filestore.visionproje.com/delete", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  if (data.error) {
+    console.error("Detailed error:", data.error);
+    throw new Error("Error deleting file.");
+  }
+}
+
+export async function deleteFile(filePath) {
+  // try {
+  //   await deleteFileFromSupabase(filePath);
+  // } catch (err) {
+  //   console.error("An error occurred:", err.message);
+  // }
+  try {
+    console.log("sending delete request to vector db for file: " + filePath);
+    await deleteFileFromVectorDB(filePath);
   } catch (err) {
     console.error("An error occurred:", err.message);
   }

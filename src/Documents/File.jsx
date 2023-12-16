@@ -6,6 +6,7 @@ import { Box, Card, Separator, Text, Flex } from '@radix-ui/themes'
 import FileDetails from './FileDetails';
 import FileTop from './FileTop';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { deleteFile } from '../utils/utils';
 
 
 const File = ({ fileName, onFileClick, filePath }) => {
@@ -40,6 +41,8 @@ const File = ({ fileName, onFileClick, filePath }) => {
 
   const handleDelete = () => {
     console.log('Delete action');
+    deleteFile(filePath);
+
     handleMenuClose();
   };
 
