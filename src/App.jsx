@@ -1,4 +1,4 @@
-import { HashRouter as Router, Navigate, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+import {Navigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './App.css';

@@ -72,9 +72,6 @@ const File = ({ fileName, onFileClick, filePath }) => {
               className="DropdownMenuContent"
               style={{ position: 'absolute', top: `${menuPosition.y}px`, left: `${menuPosition.x}px` }}
             >
-              <DropdownMenu.Item className="DropdownMenuItem" onSelect={handleRename}>
-                Rename
-              </DropdownMenu.Item>
               <DropdownMenu.Item className="DropdownMenuItem" onSelect={handleDelete}>
                 Delete
               </DropdownMenu.Item>
