@@ -5,6 +5,7 @@ import {
   getSignedURL,
   invokeUploadFunction,
 } from "./upload_file_helpers";
+// import { extractTextFromPdfWithOCR } from "./ocr";
 
 import {
   deleteFileFromSupabase,
@@ -20,6 +21,14 @@ export async function addFile(filePath, file, contentType = "research") {
     await addFileDataToDatabase(file, contentType, userId, data.path);
 
     const publicURL = await getSignedURL(filePath);
+
+    // try {
+    //   const extractedText = await extractTextFromPdfWithOCR(file);
+    //   console.log("extracted text: ", extractedText);
+    //   // ... rest of your code ...
+    // } catch (err) {
+    //   console.error("An error occurred:", err.message);
+    // }
 
     // upload the file to V DB
     const metadata = await invokeUploadFunction(
