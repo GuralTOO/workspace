@@ -1,8 +1,9 @@
 import { supabase } from "../supabaseClient";
-import { TextField, Button, Box } from '@mui/material';
 import React, { useState, useEffect } from "react";
+import { TextArea } from '@radix-ui/themes';
 import './Chatbox.css'
 import useSocket from "../utils/useSocket";
+import { indigo } from "@radix-ui/colors";
 
 
 const Chatbox = ({folderPath, outputMessage, setOutputMessage}) => {
@@ -56,6 +57,7 @@ const Chatbox = ({folderPath, outputMessage, setOutputMessage}) => {
         console.log(currentPath)
         event.preventDefault(); // Add this line
         setOutputMessage("");
+        setMessage(""); // clear the message input field
         console.log("I be streamin")
         if (socket && socket.connected) {
             socket.emit("searchStream", {"path": currentPath, "query": message});
@@ -87,29 +89,27 @@ const Chatbox = ({folderPath, outputMessage, setOutputMessage}) => {
     }
 
     return (
-        <div style={{paddingBottom: 20}}>
-            <form onSubmit={handleSendStream}>
-                <Box display="flex" >
-                    <TextField 
-                        variant="filled"
-                        // label="Ask a question"
-                        placeholder="Tell me about x..." 
-                        fullWidth
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        style={{ marginRight: 8}}
-                        InputProps={{style: { color: 'black'}}}
-                        multiline
-                        focused
-                    />
-                    <Button 
-                        variant="contained" 
-                        color="primary" 
-                        type="submit"
-                    >Send</Button>
-                </Box>
-            </form>
-            {/* <p>{outputMessage}</p> */}
+        <div style={{paddingBottom: 20, marginRight: 20}} className="ChatInputArea">
+            <TextArea 
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Ask your question ... click 'Enter' to send"
+                variant="soft"
+                size="3"
+                color="indigo"
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault(); // Prevent the default behavior
+                        handleSendStream(e); // Call the function to handle sending the message
+                    }
+                }}
+                style={{
+                    border: "5px",
+                    borderColor: indigo.indigo9,
+                    borderRadius: '5px', padding: '10px',
+                }}
+                // Add other Radix UI specific properties if needed
+            />
         </div>
     );
 

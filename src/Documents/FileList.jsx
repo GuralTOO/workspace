@@ -204,6 +204,7 @@ const FileList = ({userID}) => {
           </Tabs.Content>
           <Tabs.Content className="TabsContent" value="tab2">
             <div className="chatbox-message-area">
+              <p style={{color: 'black'}}> Chat with GPT </p>
               {chatBoxText}
             </div>
             <div className="chatbox-input-area">

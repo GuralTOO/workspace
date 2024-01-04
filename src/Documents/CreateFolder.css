@@ -97,6 +97,8 @@ button {
   fill: white;
 }
 
+/* Add button icons */
+
 .IconicButton {
   font-family: inherit;
   height: 100px;
@@ -114,15 +116,24 @@ button {
   background-color: var(--ui-background-color);
   box-shadow: 0 2px 10px var(--black-a7);
 }
-.IconicButton svg {
-    /* color: var(--indigo-11); Change the color accordingly */
-}
 .IconicButton:hover {
     background-color: var(--ui-background-color-hover);
 }
-/* .IconicButton:focus {
-  box-shadow: 0 0 0 2px black;
-} */
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.SpinningIcon {
+  animation: spin 2s linear infinite;
+}
+
+/* add button icons end */
+
+
+
+
 
 .RightSlot {
   margin-left: auto;

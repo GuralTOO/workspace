@@ -233,8 +233,7 @@ const CreateFolder = ({ parentPath, onCreate, open, onOpenChange }) => {
 
 
 
-const UploadFile = forwardRef(({ parentPath, onUpload }, ref) => {
-  const [uploading, setUploading] = useState(false);
+const UploadFile = forwardRef(({ parentPath, onUpload, uploading, setUploading }, ref) => {
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -267,7 +266,7 @@ const DropdownMenuDemo = ({parentPath, onCreate}) => {
 
   // Trigger the hidden file input when the Upload menu item is selected
   const handleUploadClick = () => {
-    setUploading(true);
+    // setUploading(true);
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
@@ -282,8 +281,10 @@ const DropdownMenuDemo = ({parentPath, onCreate}) => {
     <UploadFile
       ref={fileInputRef}
       parentPath={parentPath}
+      uploading={uploading}
+      setUploading={setUploading}
       onUpload={() => {
-        setUploading(false);
+        // setUploading(false);
         onCreate();
       }}
     />
@@ -305,7 +306,8 @@ const DropdownMenuDemo = ({parentPath, onCreate}) => {
         {
           uploading ? (
             <button className="IconicButton" aria-label="Customise options">
-              <Loader color='#3e63dd' size={'32px'}/>
+              <Loader className='SpinningIcon'
+              color='#3e63dd' size={'32px'}/>
             </button>
           ) : (
             <button className="IconicButton" aria-label="Customise options">
