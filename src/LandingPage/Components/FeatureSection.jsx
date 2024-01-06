@@ -1,28 +1,28 @@
 import React from 'react';
 import { Card, Text, Em} from '@radix-ui/themes';
 import { indigo, slate } from '@radix-ui/colors';
-
+import { FileTextIcon, ChatBubbleIcon, ImageIcon, CrumpledPaperIcon } from '@radix-ui/react-icons'
 
 const features = [
   {
     title: 'Automated Extraction',
     description: 'Upload your research papers and our software will extract key information such as authors, methods, and results.',
-    icon: '/path-to-your-icon/automated-extraction-icon.svg', // Replace with your icon path
+    icon: <FileTextIcon style={{ width: '50px', height: '50px', marginBottom: '.8rem' }} color={slate.slate12} />, // Replace with your icon path
   },
   {
     title: 'Chat with AI',
     description: 'Ask questions about your research papers and our AI will answer them for you.',
-    icon: '/path-to-your-icon/chat-with-ai-icon.svg', // Replace with your icon path
+    icon: <ChatBubbleIcon style={{ width: '50px', height: '50px', marginBottom: '.8rem' }} color={slate.slate12} />, // Replace with your icon path
   },
   {
     title: 'Data Visualization',
     description: 'Visualize connections and trends in your literature review with interactive mind maps and graphs.',
-    icon: '/path-to-your-icon/data-visualization-icon.svg', // Replace with your icon path
+    icon: <ImageIcon style={{ width: '50px', height: '50px', marginBottom: '.8rem' }} color={slate.slate10} />, // Replace with your icon path
   },
   {
     title: 'Collaborative Tools',
-    description: 'Work together with your team in real-time, share insights, and build on each other’s work seamlessly.',
-    icon: '/path-to-your-icon/collaborative-tools-icon.svg', // Replace with your icon path
+    description: 'Work together with your team in real-time, share insights, and build on each other’s work.',
+    icon: <CrumpledPaperIcon style={{ width: '50px', height: '50px', marginBottom: '.8rem' }} color={slate.slate10} />, // Replace with your icon path
   },
   // Add more features as needed
 ];
@@ -56,12 +56,12 @@ const FeatureSection = () => {
             <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
                 {/* add a green line of text saying "Coming Soon" if the index is 2 or higher*/}
                 {index >= 2 && 
-                <Text as="div" size="2" weight="bold" color='grass'> {/* Ensuring text color is green for contrast */}
-                    <Em>Coming Soon</Em>
+                <Text as="div" size="2" weight="bold" color='grass' style={{marginBottom: '.2rem'}}> {/* Ensuring text color is green for contrast */}
+                    <Em >Coming Soon</Em>
                 </Text>
                 }
-
-              <img src={feature.icon} alt={`${feature.title} icon`} style={{ width: '50px', height: '50px', marginBottom: '1rem' }} />
+                {feature.icon}
+              {/* <img src={feature.icon} alt={`${feature.title} icon`} style={{ width: '50px', height: '50px', marginBottom: '1rem' }} /> */}
               <Text as="div" size="2" weight="bold" style={{ marginBottom: '0.5rem', color: indigoColor }}>
                 {feature.title}
               </Text>

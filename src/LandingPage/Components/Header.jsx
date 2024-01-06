@@ -2,7 +2,7 @@ import React from 'react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 import { indigo } from '@radix-ui/colors';
 import { NavLink } from 'react-router-dom';
-
+import logo from '../images/logo.png';
 
 const Header = () => {
     // Define the brand colors
@@ -10,6 +10,20 @@ const Header = () => {
     const backgroundColor = 'white';
     const textColor = 'black';
 
+    const menuItemStyle = {
+        padding: '0.6rem 1rem',
+        cursor: 'pointer',
+        color: textColor,
+        backgroundColor: indigo.indigo3,
+        ':hover': {
+            backgroundColor: indigo.indigo3, // Lighter indigo color for hover
+            color: 'white'
+        },
+        ':focus': {
+            backgroundColor: indigo.indigo4, // Slightly darker indigo color for focus
+            color: 'white'
+        }
+    };
     return (
         <header style={{
             display: 'flex',
@@ -19,45 +33,21 @@ const Header = () => {
             backgroundColor: backgroundColor,
             color: textColor
         }}>
-            <div style={{
-                fontWeight: 'bold',
-                fontSize: '1.5rem',
-                color: textColor
-            }}>
-                YourLogo
+            <div style={{ flex: 1, position: 'absolute', marginLeft: '10px' }}>
+                <img src={logo} alt="logo" style={{width: '50px', height: '50px'}}/>
             </div>
-            <nav>
-                <ul style={{
-                    listStyle: 'none',
-                    display: 'flex',
-                    gap: '1rem',
-                    margin: '0',
-                    padding: '0'
-                }}>
-                    <a href="#features" style={{ 
-                        color: textColor, 
-                        textDecoration: 'none',
-                        cursor: 'pointer', // Indicates that it's clickable
-                        fontWeight: '500', // Optionally make it slightly bolder
-                        ':hover': { textDecoration: 'underline' } // Underline on hover
-                    }}>Features</a>
-                    <a href="#how-it-works" style={{ 
-                        color: textColor, 
-                        textDecoration: 'none',
-                        cursor: 'pointer',
-                        fontWeight: '500',
-                        ':hover': { textDecoration: 'underline' }
-                    }}>How It Works</a>
-                    <a href="#testimonials" style={{ 
-                        color: textColor, 
-                        textDecoration: 'none',
-                        cursor: 'pointer',
-                        fontWeight: '500',
-                        ':hover': { textDecoration: 'underline' }
-                    }}>Testimonials</a>
-                </ul>
-            </nav>
-            <div>
+            <div style={{ 
+                flex: 2, 
+                textAlign: 'center', 
+                fontWeight: 'bold', 
+                fontSize: '1.5rem',
+                color: textColor,
+                position: 'fixed',
+                width: '100%',
+            }}>
+                RapidReview
+            </div>
+            <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <button style={{
@@ -76,14 +66,18 @@ const Header = () => {
                     borderRadius: '6px',
                     boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
                 }}>
-                    <DropdownMenuItem onSelect={() => alert('Feature 1')} style={{ color: textColor }}>
-                        Feature 1
+                    <DropdownMenuItem onSelect={() => alert('Upload your research papers and our software will extract key information such as authors, methods, and results.')}                                 
+                        style={menuItemStyle}>
+                        Extract Information
                     </DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => alert('Feature 2')} style={{ color: textColor }}>
-                        Feature 2
+                    <DropdownMenuItem onSelect={() => alert('Ask questions about your research papers and our AI will answer them for you.')} style={menuItemStyle}>
+                        Chat with Documents
                     </DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => alert('Feature 3')} style={{ color: textColor }}>
-                        Feature 3
+                    <DropdownMenuItem onSelect={() => alert('Visualize connections and trends in your literature review with interactive mind maps and graphs.')}  style={menuItemStyle}>
+                        Data Visualization
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => alert('Work together with your team in real-time, share insights, and build on each other’s work.')}  style={menuItemStyle}>
+                        Collaborate
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
