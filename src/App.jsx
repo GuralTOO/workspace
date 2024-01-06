@@ -9,6 +9,7 @@ import FileList from './Documents/FileList';
 import Sidebar from './Documents/Sidebar/SideBar';
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
+import LandingPage from './LandingPage/LandingPage';
 
 
 function App() {
@@ -29,6 +30,27 @@ function App() {
   const theme = createTheme();
 
 
+  let routes;
+  if (!session) {
+    routes = createBrowserRouter([
+      { path: '/', element: <LandingPage /> },
+      { path: 'login', element: <Auth /> },
+      { path: '*', element: <Navigate to="/" /> } // Redirect all other paths to LandingPage
+    ]);
+  } else {
+    routes = createBrowserRouter([
+      { 
+        element: <Sidebar userID={session.user.id} />, 
+        children: [
+          { path: 'account', element: <Account session={session} /> },
+          { path: "files/*", element: <FileList userID={session.user.id} /> },
+          { path: '/', element: <Navigate to={'files'} /> },
+          { path: '*', element: <h1>404: Whoopsie daisy, Page not Found</h1> }
+        ]
+      }
+    ]);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Theme
@@ -44,26 +66,7 @@ function App() {
         weight="normal"
       >
       <div>
-      {!session ? <Auth /> :       
-        <RouterProvider router={
-          createBrowserRouter([
-            {element: <Sidebar userID={session.user.id}/>, children: [
-              {
-                path: 'account', element: <Account session={session} />
-              },
-              {
-                path: "files/*", element: <FileList userID={session.user.id} /> ,
-              },
-              {
-                path: '/', element: <Navigate to = {'files'}/>
-              },
-              {
-                path: '*', element: <h1>404: Whoopsie daisy, Page not Found</h1>
-              }
-            ]}
-          ])  
-        } />
-      } 
+      <RouterProvider router={routes} />
       </div>
       </Theme>
     </ThemeProvider>

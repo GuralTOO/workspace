@@ -1,0 +1,15 @@
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+    }
+
+    .header-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-button, .header-button.signup {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}

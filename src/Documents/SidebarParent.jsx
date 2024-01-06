@@ -13,7 +13,10 @@ const SidebarParent = ({userID}) => {
   
   return (
     <div className="grid lg:grid-cols-5">
-        <Sidebar className="hidden lg:block" style = {{backgroundColor: "black"}}/>        
+
+        {/* render sidebar only if the userID is active */}
+        {userID && <Sidebar className="hidden lg:block" style = {{backgroundColor: "black"}}/>}
+
         <div className="border-l col-span-3 lg:col-span-4 lg:border-l">
             <Outlet />
         </div>
