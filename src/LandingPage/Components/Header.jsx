@@ -27,26 +27,29 @@ const Header = () => {
     return (
         <header style={{
             display: 'flex',
-            justifyContent: 'space-between',
             alignItems: 'center',
             padding: '1rem',
-            backgroundColor: backgroundColor,
+            backgroundColor: 'white',
             color: textColor
         }}>
-            <div style={{ flex: 1, position: 'absolute', marginLeft: '10px' }}>
-                <img src={logo} alt="logo" style={{width: '50px', height: '50px'}}/>
+            {/* Logo on the left */}
+            <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
+                <img src={logo} alt="logo" style={{ marginLeft: '10px', width: '50px', height: '50px' }} />
             </div>
-            <div style={{ 
-                flex: 2, 
+             {/* Title centered */}
+             <div style={{ 
+                flex: 0, 
                 textAlign: 'center', 
-                fontWeight: 'bold', 
-                fontSize: '1.5rem',
-                color: textColor,
-                position: 'fixed',
-                width: '100%',
+                color: 'black', 
+                fontSize: '1.6rem', // Larger font size
+                fontWeight: 'bold', // Bold font weight
+                fontFamily: 'Arial, sans-serif', // A standard, professional font family
+                letterSpacing: '1px' // Slight letter spacing for better readability
             }}>
                 RapidReview
             </div>
+            
+            {/* Buttons on the right */}
             <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
