@@ -20,7 +20,7 @@ const steps = [
   },
   {
     title: 'Give us Feedback',
-    description: 'Did things work well? Did you feel like some features were missing or just want to say hi? Please send us your feedback by clicking the "Feedback" button on the sidebar.'
+    description: 'Did things work well? Did you feel like some features were missing or just want to say hi? Please send us your feedback by email - gural@rapidreview.io.'
   }
 ];
 const HowItWorksSection = () => {
